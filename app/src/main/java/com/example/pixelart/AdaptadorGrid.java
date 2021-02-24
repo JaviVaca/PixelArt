@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class AdaptadorGrid extends BaseAdapter {
 
     private Context context;
+    private int linea;
     public static ArrayList<Casilla> ITEMS= new ArrayList<>();
 
     public AdaptadorGrid (Context context) {
@@ -23,10 +24,10 @@ public class AdaptadorGrid extends BaseAdapter {
     public int getCount() {
         for (int i=0; i<256;i++) {
             if (i%2==0) {
-                ITEMS.add(new Casilla(i, 0));
+                ITEMS.add(new Casilla(i, 0, 0));
             }
             else {
-                ITEMS.add(new Casilla(i, 1));
+                ITEMS.add(new Casilla(i, 1, 0));
             }
 
         }
@@ -57,22 +58,24 @@ public class AdaptadorGrid extends BaseAdapter {
 
         final Casilla casilla = (Casilla) getItem(position);
 
-        /*if (position%16==0){
-            final Casilla casillaAnterior = (Casilla) getItem(position-1);
-            if(casillaAnterior.getColor()==0){
-                color=Color.BLACK;
-            }else{
-                else {tvGrid.setBackgroundColor(Color.YELLOW);
-            }
+
+        if ((position>0)&&(position%16==0)) {
+            linea = position/16;
         }
-            if (casilla.getColor()==color) {
+        casilla.setLinea(linea);
+
+        if (linea%2==0) {
+            if (casilla.getColor()==0) {
                 tvGrid.setBackgroundColor(Color.BLACK);
             }
             else {tvGrid.setBackgroundColor(Color.YELLOW);}
-*/
-
-        if
-
+        }
+        else {
+            if (casilla.getColor()==0) {
+                tvGrid.setBackgroundColor(Color.YELLOW);
+            }
+            else {tvGrid.setBackgroundColor(Color.BLACK);}
+        }
 
         return view;
     }
