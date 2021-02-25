@@ -1,9 +1,14 @@
 package com.example.pixelart;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 public class Casilla {
     private int id;
     private int color;
     private int linea;
+    public static ArrayList<Casilla> ITEMS= new ArrayList<>();
 
     public Casilla (int id, int color, int linea) {
         this.id = id;
@@ -28,4 +33,6 @@ public class Casilla {
     public void setLinea(int linea) {
         this.linea = linea;
     }
+
+
 }

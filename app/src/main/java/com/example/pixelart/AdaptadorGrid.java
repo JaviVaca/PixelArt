@@ -1,12 +1,16 @@
 package com.example.pixelart;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 
@@ -14,34 +18,27 @@ public class AdaptadorGrid extends BaseAdapter {
 
     private Context context;
     private int linea;
-    public static ArrayList<Casilla> ITEMS= new ArrayList<>();
+
 
     public AdaptadorGrid (Context context) {
         this.context = context;
     }
 
+
     @Override
     public int getCount() {
-        for (int i=0; i<256;i++) {
-            if (i%2==0) {
-                ITEMS.add(new Casilla(i, 0, 0));
-            }
-            else {
-                ITEMS.add(new Casilla(i, 1, 0));
-            }
 
-        }
-        return ITEMS.size();
+        return Casilla.ITEMS.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return ITEMS.get(position);
+    public Casilla getItem(int position) {
+        return Casilla.ITEMS.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return ITEMS.get(position).getId();
+        return Casilla.ITEMS.get(position).getId();
     }
 
     @Override
@@ -66,15 +63,15 @@ public class AdaptadorGrid extends BaseAdapter {
 
         if (linea%2==0) {
             if (casilla.getColor()==0) {
-                tvGrid.setBackgroundColor(Color.BLACK);
+                tvGrid.setBackgroundColor(Color.WHITE);
             }
-            else {tvGrid.setBackgroundColor(Color.YELLOW);}
+            else {tvGrid.setBackgroundColor(Color.LTGRAY);}
         }
         else {
             if (casilla.getColor()==0) {
-                tvGrid.setBackgroundColor(Color.YELLOW);
+                tvGrid.setBackgroundColor(Color.LTGRAY);
             }
-            else {tvGrid.setBackgroundColor(Color.BLACK);}
+            else {tvGrid.setBackgroundColor(Color.WHITE);}
         }
 
         return view;
