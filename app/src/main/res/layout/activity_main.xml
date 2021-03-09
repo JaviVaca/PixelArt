@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <GridView
@@ -89,7 +89,7 @@
             android:layout_marginBottom="5dp"
             android:background="#FF5722"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_3"
@@ -120,7 +120,7 @@
             android:layout_marginBottom="5dp"
             android:background="#03A9F4"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_4"
@@ -151,7 +151,7 @@
             android:layout_marginBottom="5dp"
             android:background="#FFC107"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_5"
@@ -299,6 +299,36 @@
             android:background="#009688"
             android:orientation="horizontal"
             android:tag="IdImagen22" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPintar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:clickable="true"
+            app:srcCompat="@drawable/baseline_create_black_18dp"
+            android:contentDescription="@string/pintar" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="4"
+            android:clickable="true"
+            app:srcCompat="@drawable/eraser"
+            android:contentDescription="@string/borrar" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabNuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="4"
+            android:layout_column="7"
+            android:clickable="true"
+            app:srcCompat="@drawable/baseline_note_add_black_18dp"
+            android:contentDescription="@string/nuevo" />
 
     </GridLayout>
 
