@@ -4,12 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
     private GridView gridView;
     private AdaptadorGrid adaptadorGrid;
+    private FloatingActionButton fabPintar, fabBorrar, fabNuevo;
+    private Boolean pintar=true, borrar=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +26,19 @@ public class MainActivity extends AppCompatActivity {
         adaptadorGrid = new AdaptadorGrid(this);
         gridView.setAdapter(adaptadorGrid);
 
+        fabPintar= findViewById(R.id.fabPintar);
+        fabBorrar= findViewById(R.id.fabBorrar);
+        fabNuevo = findViewById(R.id.fabNuevo);
 
+        fabBorrar.setOnClickListener(v -> {
+            borrar=true;
+            pintar=false;
+        });
 
+        fabPintar.setOnClickListener(v -> {
+            pintar=true;
+            borrar=false;
+        });
 
 
     }
