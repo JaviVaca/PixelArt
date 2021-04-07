@@ -3,29 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <GridView
         android:id="@+id/GridView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="128dp"
+        android:layout_width="408dp"
+        android:layout_height="501dp"
+        android:layout_marginTop="88dp"
         android:numColumns="16"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="0dp"
+        android:id="@+id/paleta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/casilla_gris"
         android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
         android:padding="4dp"
+        android:paddingBottom="0dp"
         android:rowCount="5"
-        android:stretchMode="columnWidth">
+        android:stretchMode="columnWidth"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:id="@+id/con1_1"
@@ -301,5 +304,6 @@
             android:tag="IdImagen22" />
 
     </GridLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
