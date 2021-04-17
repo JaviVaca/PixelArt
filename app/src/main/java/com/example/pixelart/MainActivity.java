@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         gridView = findViewById(R.id.GridView);
         adaptadorGrid = new AdaptadorGrid(this);
-        gridView.setAdapter(adaptadorGrid);
+        gridView.setAdapter(adaptadorGrid);  
 
 //        LinearLayout padre =(LinearLayout)tvGrid.getParent();
 //        GridView padreGridLayout ;
