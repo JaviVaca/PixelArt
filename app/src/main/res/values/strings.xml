@@ -3,4 +3,8 @@
     <string name="nuevo">Nuevo</string>
     <string name="borrar">Borrar</string>
     <string name="pintar">Pintar</string>
+    <string name="seleccionado">seleccionado</string>
+    <string name="colorSeleccionado">colorSeleccionado</string>
+    <string name="cuadradoSeleccionado">cuadradoSeleccionado</string>
+    <string name="lineaSeleccionada">lineaSeleccionada</string>
 </resources>
