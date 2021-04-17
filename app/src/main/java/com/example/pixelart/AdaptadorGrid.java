@@ -91,20 +91,20 @@ public class AdaptadorGrid extends BaseAdapter {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                Context ctx = finalView.getContext();
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
-                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
-                }
-                if(event.getAction() ==MotionEvent.ACTION_MOVE){
-                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
-                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
-                }
-                if(event.getAction() ==MotionEvent.ACTION_UP){
-                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
-                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
-                }
+//                Context ctx = finalView.getContext();
+//                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+//
+//                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
+//                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
+//                }
+//                if(event.getAction() ==MotionEvent.ACTION_MOVE){
+//                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
+//                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
+//                }
+//                if(event.getAction() ==MotionEvent.ACTION_UP){
+//                    putPref(ctx.getString(R.string.lineaSeleccionada), String.valueOf(position), ctx.getApplicationContext());
+//                    putPref(ctx.getString(R.string.cuadradoSeleccionado), String.valueOf((position/casilla.getLinea())-1), ctx.getApplicationContext());
+//                }
                 return true;
             }
         });
