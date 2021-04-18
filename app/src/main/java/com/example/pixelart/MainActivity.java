@@ -3,6 +3,7 @@ package com.example.pixelart;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Lifecycle;
 
+import android.annotation.SuppressLint;
 import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -55,34 +56,44 @@ public class MainActivity extends AppCompatActivity {
 //
 //        padreGridLayout = (GridView) padrePadre.getParent();
         gridView.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint({"ClickableViewAccessibility", "Range"})
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 arrayCuadrados.clear();
                 arrayLimites.clear();
                 arrayInicioFin.clear();
                 gridView.getX();
-
                 for(int i=0;i<gridView.getChildCount();i++){
                     LinearLayout lnHijo=(LinearLayout)gridView.getChildAt(i);
                     TextView tvHijo=(TextView) lnHijo.getChildAt(0);
                     String altura="";
                     String anchura="";
-                    if(lnHijo.getY()<lnHijo.getHeight()){
-                        altura=(gridView.getY()+lnHijo.getHeight())+"/"+(gridView.getY()+lnHijo.getY());
-                    }else if(lnHijo.getY()>lnHijo.getHeight()){
-                        altura=(gridView.getY()+lnHijo.getHeight()+lnHijo.getY())+"/"+(gridView.getY()+lnHijo.getY());
-                    }else{
-                        altura=(gridView.getY()+lnHijo.getHeight()+lnHijo.getY())+"/"+(gridView.getY()+lnHijo.getY());
+                    int[] outLocation = new int[2];
+                    gridView.getLocationOnScreen(outLocation);
+
+                    int marginleftGridView=0;
+                    int margintopGridView=0;
+//                    int marginleftGridView=outLocation[0];
+//                    int margintopGridView=outLocation[1];
+
+                    float xHijo = lnHijo.getX();
+                    float yHijo = lnHijo.getY();
+                    float alturaHijo = lnHijo.getHeight();
+                    float anchuraHijo = lnHijo.getWidth();
+
+                    if(yHijo<alturaHijo){
+                        altura=(margintopGridView+alturaHijo)+"/"+(margintopGridView+yHijo);
+                    }else if(yHijo>=alturaHijo){
+                        altura=(margintopGridView+alturaHijo+yHijo)+"/"+(margintopGridView+yHijo);
                     }
-                    if(lnHijo.getX()<lnHijo.getWidth()){
-                        anchura="->"+(gridView.getX()+lnHijo.getWidth())+"/"+(gridView.getX()+lnHijo.getX());
-                    }else if(lnHijo.getX()>lnHijo.getWidth()){
-                        anchura="->"+(gridView.getX()+lnHijo.getWidth()+lnHijo.getX())+"/"+(gridView.getX()+lnHijo.getX());
-                    }else{
-                        anchura="->"+(gridView.getX()+lnHijo.getWidth()+lnHijo.getX())+"/"+(gridView.getX()+lnHijo.getX());
+                    if(xHijo<anchuraHijo){
+                        anchura="->"+(marginleftGridView+anchuraHijo)+"/"+(marginleftGridView+xHijo);
+                    }else if(xHijo>=anchuraHijo){
+                        anchura="->"+(marginleftGridView+anchuraHijo+xHijo)+"/"+(marginleftGridView+xHijo);
                     }
+
                     arrayInicioFin.add(altura+".."+anchura);
-                    arrayLimites.add("altura->"+lnHijo.getHeight()+"->anchura->"+lnHijo.getWidth()+"->y->"+lnHijo.getY()+"->x->"+lnHijo.getX());
+                    arrayLimites.add("altura->"+alturaHijo+"->anchura->"+anchuraHijo+"->y->"+yHijo+"->x->"+xHijo);
                     arrayCuadrados.add(lnHijo);
                 }
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -153,24 +164,7 @@ public class MainActivity extends AppCompatActivity {
         //en caso de que se haya seleccionado el boton de pintar, se pintara del color seleccionado
         //anteriormente en la paleta
         if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.pintar))) {
-//            String colorSeleccionadoShared = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
-//            Toast.makeText(getApplicationContext(), "color seleccionado grid->" + colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
-//            GridView parent=(GridView)v;
-//            View vistaHija= parent.getChildAt(Integer.parseInt(getPref(getApplicationContext().getString(R.string.lineaSeleccionada), getApplicationContext())));
-//            LinearLayout lnHija=(LinearLayout)vistaHija;
-//            for(int i=0;i<lnHija.getChildCount();i++){
-//                lnHija.getChildAt(i).getTag();
-//
-//
-//                if(event.getX()==lnHija.getX()&&lnHija.getY()==event.getY()){
-//
-//                }
-//            }
-//            View vistaNieta= lnHija.getChildAt(0);
-//            Toast.makeText(getApplicationContext(), "casilla seleccionada->"+getPref(getApplicationContext().getString(R.string.cuadradoSeleccionado), getApplicationContext()), Toast.LENGTH_SHORT).show();
-//
-//            vistaNieta.setBackgroundColor(Integer.parseInt(colorSeleccionadoShared));
-//
+
             Log.d("miFiltro","esto es arrayCuadrados");
 
             for(int i=0;i<arrayCuadrados.size();i++){
@@ -192,40 +186,50 @@ public class MainActivity extends AppCompatActivity {
                 Integer largoInicio=-1;
                 Integer anchoLimite=-1;
                 Integer anchoInicio=-1;
+                String[] eventoX = String.valueOf(event.getX()).split(".");
+                String[] eventoY = String.valueOf(event.getY()).split(".");
                 if(largo[0].contains(".")){
-                    String[] largoConPunto = largo[0].split(".");
+                    String[] largoConPunto = largo[0].split(",");
                     if(largoConPunto.length==0){
                         largoLimite =0;
+                    }else{
+                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
                     }
                 }else{
-                    largoLimite = Integer.parseInt(largo[0]);
+                    largoLimite = Integer.parseInt(largo[0].replace(".0",""));
                 }
                 if(largo[1].contains(".")){
-                    String[] largoConPunto = largo[1].split(".");
+                    String[] largoConPunto = largo[1].split(",");
                     if(largoConPunto.length==0){
                         largoInicio =0;
+                    }else{
+                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
                     }
                 }else{
-                    largoInicio = Integer.parseInt(largo[1]);
+                    largoInicio = Integer.parseInt(largo[1].replace(".0",""));
                 }
                 if(ancho[0].contains(".")){
-                    String[] anchoConPunto = ancho[0].split(".");
+                    String[] anchoConPunto = ancho[0].split(",");
                     if(anchoConPunto.length==0){
                         anchoLimite =0;
+                    }else{
+                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
                     }
                 }else{
-                    anchoLimite = Integer.parseInt(ancho[0]);
+                    anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
                 }
                 if(ancho[1].contains(".")){
-                    String[] anchoConPunto = ancho[1].split(".");
+                    String[] anchoConPunto = ancho[1].split(",");
                     if(anchoConPunto.length==0){
                         anchoInicio =0;
+                    }else{
+                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
                     }
                 }else{
-                    anchoInicio = Integer.parseInt(ancho[1]);
+                    anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
                 }
 
-                if(event.getX()<=anchoLimite&&event.getX()>=anchoInicio&&event.getY()<=largoLimite&&event.getY()>=largoInicio){
+                if(Integer.parseInt(eventoX[0])<=anchoLimite&&Integer.parseInt(eventoX[0])>=anchoInicio&&Integer.parseInt(eventoY[0])<=largoLimite&&Integer.parseInt(eventoY[0])>=largoInicio){
                     TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
                     String colorSeleccionadoSha = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
                     tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoSha));
