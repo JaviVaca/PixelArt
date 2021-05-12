@@ -19,15 +19,23 @@
         android:id="@+id/paleta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:background="@color/casilla_gris"
         android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
-        android:padding="4dp"
+
+        android:padding="3dp"
+        android:paddingLeft="74dp"
+
+
         android:paddingBottom="0dp"
         android:rowCount="5"
         android:stretchMode="columnWidth"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -92,7 +100,7 @@
             android:layout_marginBottom="5dp"
             android:background="#FF5722"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_3"
@@ -123,7 +131,7 @@
             android:layout_marginBottom="5dp"
             android:background="#03A9F4"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_4"
@@ -154,7 +162,7 @@
             android:layout_marginBottom="5dp"
             android:background="#FFC107"
             android:orientation="horizontal"
-            android:tag="IdImagen22"></LinearLayout>
+            android:tag="IdImagen22" />
 
         <LinearLayout
             android:id="@+id/con1_5"
@@ -220,8 +228,8 @@
             android:id="@+id/con1_7"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="0"
-            android:layout_column="6"
+            android:layout_row="2"
+            android:layout_column="0"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -235,8 +243,8 @@
             android:id="@+id/con2_7"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="1"
-            android:layout_column="6"
+            android:layout_row="2"
+            android:layout_column="1"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -249,8 +257,8 @@
             android:id="@+id/con1_8"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="0"
-            android:layout_column="7"
+            android:layout_row="2"
+            android:layout_column="4"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -264,8 +272,8 @@
             android:id="@+id/con2_8"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="1"
-            android:layout_column="7"
+            android:layout_row="2"
+            android:layout_column="5"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -278,8 +286,8 @@
             android:id="@+id/con1_9"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="0"
-            android:layout_column="8"
+            android:layout_row="2"
+            android:layout_column="2"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -293,8 +301,8 @@
             android:id="@+id/con2_9"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_row="1"
-            android:layout_column="8"
+            android:layout_row="2"
+            android:layout_column="3"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -304,6 +312,54 @@
             android:tag="IdImagen22" />
 
     </GridLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto1"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/GridView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnreiniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/btnreiniciar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.018"
+        tools:ignore="OnClick" />
+
+    <Button
+        android:id="@+id/btnrandom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onClick"
+        android:text="@string/btnrandom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.018"
+        tools:ignore="OnClick" />
+
+    <TextView
+        android:id="@+id/txtrandom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/paleta"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.969" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
