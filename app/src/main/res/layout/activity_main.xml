@@ -337,33 +337,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.577"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.092">
+        app:layout_constraintVertical_bias="0.543">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPintar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_margin="20dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:contentDescription="@string/pintar"
+            android:focusable="true"
             app:srcCompat="@drawable/baseline_create_black_18dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/borrar"
+            android:focusable="true"
             app:srcCompat="@drawable/eraser" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -371,9 +373,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:clickable="true"
             android:layout_weight="1"
+            android:clickable="true"
             android:contentDescription="@string/nuevo"
+            android:focusable="true"
             app:srcCompat="@drawable/baseline_note_add_black_18dp" />
     </LinearLayout>
 
