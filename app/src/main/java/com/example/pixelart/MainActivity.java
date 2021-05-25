@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -33,15 +36,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayLimites=new ArrayList<>();
     ArrayList<String> arrayInicioFin=new ArrayList<>();
     Context ctx;
-
-
-
+    GridLayout paleta;
     int m;
-
     private TextView txtrandom;
     private ImageView imagenDibujo;
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +53,26 @@ public class MainActivity extends AppCompatActivity {
         AdaptadorGrid adaptadorGrid = new AdaptadorGrid(this);
         gridView.setAdapter(adaptadorGrid);
         gridView.setPadding(100,50,100,50);
+        paleta = findViewById(R.id.paleta);
 
-        GridLayout paleta;
+//        for(int i=0;i<paleta.getChildCount();i++) {
+//            if (paleta.getChildAt(i) instanceof LinearLayout) {
+//                LinearLayout ln = (LinearLayout) paleta.getChildAt(i);
+//                ln.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        for(int z=0;z<paleta.getChildCount();z++) {
+//                            if (paleta.getChildAt(z) instanceof LinearLayout) {
+//                                LinearLayout ln = (LinearLayout) paleta.getChildAt(z);
+//                                ln.setBackgroundResource(0);
+//                            }
+//                        }
+//                        LinearLayout ln = (LinearLayout) v;
+//                        ln.setBackground(getDrawable(R.drawable.color_seleccionado));
+//                    }
+//                });
+//            }
+//        }
 
         gridView.setOnTouchListener((v, event) -> {
             arrayCuadrados.clear();
@@ -106,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        paleta = findViewById(R.id.paleta);
+
         FloatingActionButton fabPintar = findViewById(R.id.fabPintar);
         FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
         FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
@@ -128,6 +146,33 @@ public class MainActivity extends AppCompatActivity {
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
                 String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
                 Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+                int color=Color.TRANSPARENT;
+                for(int z=0;z<paleta.getChildCount();z++) {
+                    if (paleta.getChildAt(z) instanceof LinearLayout) {
+                        LinearLayout lns = (LinearLayout) paleta.getChildAt(z);
+                        Drawable background = lns.getBackground();
+                        if (background instanceof ColorDrawable) {
+                            color = ((ColorDrawable) background).getColor();
+
+                            ColorDrawable viewColor = (ColorDrawable) lns.getBackground();
+                            int colorId = viewColor.getColor();
+                            String hexColor = String.format("#%06X", (0xFFFFFF & colorId));
+
+                            lns.setBackgroundColor(Color.parseColor(hexColor));
+
+                        }
+                    }
+                }
+                LinearLayout ln = (LinearLayout) v;
+                Drawable background = ln.getBackground();
+                if (background instanceof ColorDrawable) {
+                    color = ((ColorDrawable) background).getColor();
+
+                    String rgbColor= String.format("#%06X", (0xFFFFFF & color));
+                    ln.getBackground().setColorFilter(Color.rgb(40, 50, 60), PorterDuff.Mode.SRC_ATOP);
+                }
+                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
+
             });
         }
 
@@ -196,6 +241,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 
     private void cargarDibujoDatos() {
 
@@ -292,166 +340,170 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pintarBorrar(MotionEvent event) {
+        String colorSeleccionadoSha = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
 
-        String valorSeleccionado = getPref(ctx.getString(R.string.seleccionado), ctx);
+        if(getPref(ctx.getString(R.string.colorSeleccionado), ctx)!=null&&getPref(ctx.getString(R.string.seleccionado), ctx)!=null){
 
-        //en caso de que se haya seleccionado el boton de pintar, se pintara del color seleccionado
-        //anteriormente en la paleta
-        if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.pintar))) {
 
-            Log.d("miFiltro","esto es arrayCuadrados");
+            String valorSeleccionado = getPref(ctx.getString(R.string.seleccionado), ctx);
 
-            for(int i=0;i<arrayCuadrados.size();i++){
-               Log.d("miFiltro",arrayCuadrados.get(i).toString());
-            }
-            Log.d("miFiltro","esto es arrayLimites");
+            //en caso de que se haya seleccionado el boton de pintar, se pintara del color seleccionado
+            //anteriormente en la paleta
+            if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.pintar))) {
 
-            for(int i=0;i<arrayLimites.size();i++){
-               Log.d("miFiltro",arrayLimites.get(i));
-            }
-            Log.d("miFiltro","esto es arrayInicioFin");
+                Log.d("miFiltro","esto es arrayCuadrados");
 
-            for(int i=0;i<arrayInicioFin.size();i++){
-                Log.d("miFiltro",arrayInicioFin.get(i));
-                String[] largoyancho = arrayInicioFin.get(i).split("..->");
-                String[] largo = largoyancho[0].split("/");
-                String[] ancho=largoyancho[1].split("/");
-                int largoLimite;
-                int largoInicio;
-                int anchoLimite;
-                int anchoInicio;
-//                String[] eventoX = String.valueOf(event.getX()).split(".");
-//                String[] eventoY = String.valueOf(event.getY()).split(".");
-
-                String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
-                String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
-                if(largo[0].contains(".")){
-                    String[] largoConPunto = largo[0].split(",");
-                    if(largoConPunto.length==0){
-                        largoLimite =0;
-                    }else{
-                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
-                    }
-                }else{
-                    largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                for(int i=0;i<arrayCuadrados.size();i++){
+                   Log.d("miFiltro",arrayCuadrados.get(i).toString());
                 }
-                if(largo[1].contains(".")){
-                    String[] largoConPunto = largo[1].split(",");
-                    if(largoConPunto.length==0){
-                        largoInicio =0;
-                    }else{
-                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
-                    }
-                }else{
-                    largoInicio = Integer.parseInt(largo[1].replace(".0",""));
-                }
-                if(ancho[0].contains(".")){
-                    String[] anchoConPunto = ancho[0].split(",");
-                    if(anchoConPunto.length==0){
-                        anchoLimite =0;
-                    }else{
-                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
-                    }
-                }else{
-                    anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
-                }
-                if(ancho[1].contains(".")){
-                    String[] anchoConPunto = ancho[1].split(",");
-                    if(anchoConPunto.length==0){
-                        anchoInicio =0;
-                    }else{
-                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
-                    }
-                }else{
-                    anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
-                }
+                Log.d("miFiltro","esto es arrayLimites");
 
-                if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
-                    TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
-                    String colorSeleccionadoSha = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
-                    tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoSha));
+                for(int i=0;i<arrayLimites.size();i++){
+                   Log.d("miFiltro",arrayLimites.get(i));
                 }
-            }
+                Log.d("miFiltro","esto es arrayInicioFin");
 
+                for(int i=0;i<arrayInicioFin.size();i++){
+                    Log.d("miFiltro",arrayInicioFin.get(i));
+                    String[] largoyancho = arrayInicioFin.get(i).split("..->");
+                    String[] largo = largoyancho[0].split("/");
+                    String[] ancho=largoyancho[1].split("/");
+                    int largoLimite;
+                    int largoInicio;
+                    int anchoLimite;
+                    int anchoInicio;
+    //                String[] eventoX = String.valueOf(event.getX()).split(".");
+    //                String[] eventoY = String.valueOf(event.getY()).split(".");
 
-        } else if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.borrar))) {
-            for(int i=0;i<arrayInicioFin.size();i++){
-                Log.d("miFiltro",arrayInicioFin.get(i));
-                String[] largoyancho = arrayInicioFin.get(i).split("..->");
-                String[] largo = largoyancho[0].split("/");
-                String[] ancho=largoyancho[1].split("/");
-                int largoLimite;
-                int largoInicio;
-                int anchoLimite;
-                int anchoInicio;
-//                String[] eventoX = String.valueOf(event.getX()).split(".");
-//                String[] eventoY = String.valueOf(event.getY()).split(".");
-
-                String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
-                String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
-                if(largo[0].contains(".")){
-                    String[] largoConPunto = largo[0].split(",");
-                    if(largoConPunto.length==0){
-                        largoLimite =0;
-                    }else{
-                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
-                    }
-                }else{
-                    largoLimite = Integer.parseInt(largo[0].replace(".0",""));
-                }
-                if(largo[1].contains(".")){
-                    String[] largoConPunto = largo[1].split(",");
-                    if(largoConPunto.length==0){
-                        largoInicio =0;
-                    }else{
-                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
-                    }
-                }else{
-                    largoInicio = Integer.parseInt(largo[1].replace(".0",""));
-                }
-                if(ancho[0].contains(".")){
-                    String[] anchoConPunto = ancho[0].split(",");
-                    if(anchoConPunto.length==0){
-                        anchoLimite =0;
-                    }else{
-                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
-                    }
-                }else{
-                    anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
-                }
-                if(ancho[1].contains(".")){
-                    String[] anchoConPunto = ancho[1].split(",");
-                    if(anchoConPunto.length==0){
-                        anchoInicio =0;
-                    }else{
-                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
-                    }
-                }else{
-                    anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
-                }
-
-                if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
-                    TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
-                    if( arrayCuadrados.get(i).getChildAt(0).getTag()!=null){
-                        if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(0)){
-                            int colorSeleccionadoSha = Color.WHITE;
-                            tv.setBackgroundColor(colorSeleccionadoSha);
-
-                        }else if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(1)){
-                            int colorSeleccionadoSha = Color.LTGRAY;
-                            tv.setBackgroundColor(colorSeleccionadoSha);
-
+                    String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
+                    String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
+                    if(largo[0].contains(".")){
+                        String[] largoConPunto = largo[0].split(",");
+                        if(largoConPunto.length==0){
+                            largoLimite =0;
+                        }else{
+                            largoLimite = Integer.parseInt(largo[0].replace(".0",""));
                         }
+                    }else{
+                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                    }
+                    if(largo[1].contains(".")){
+                        String[] largoConPunto = largo[1].split(",");
+                        if(largoConPunto.length==0){
+                            largoInicio =0;
+                        }else{
+                            largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                        }
+                    }else{
+                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                    }
+                    if(ancho[0].contains(".")){
+                        String[] anchoConPunto = ancho[0].split(",");
+                        if(anchoConPunto.length==0){
+                            anchoLimite =0;
+                        }else{
+                            anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                        }
+                    }else{
+                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                    }
+                    if(ancho[1].contains(".")){
+                        String[] anchoConPunto = ancho[1].split(",");
+                        if(anchoConPunto.length==0){
+                            anchoInicio =0;
+                        }else{
+                            anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                        }
+                    }else{
+                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
                     }
 
+                    if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
+                        TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
+                        String colorSeleccionadoShaa = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
+                        tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoShaa));
+                    }
+                }
+
+
+            } else if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.borrar))) {
+                for(int i=0;i<arrayInicioFin.size();i++){
+                    Log.d("miFiltro",arrayInicioFin.get(i));
+                    String[] largoyancho = arrayInicioFin.get(i).split("..->");
+                    String[] largo = largoyancho[0].split("/");
+                    String[] ancho=largoyancho[1].split("/");
+                    int largoLimite;
+                    int largoInicio;
+                    int anchoLimite;
+                    int anchoInicio;
+    //                String[] eventoX = String.valueOf(event.getX()).split(".");
+    //                String[] eventoY = String.valueOf(event.getY()).split(".");
+
+                    String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
+                    String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
+                    if(largo[0].contains(".")){
+                        String[] largoConPunto = largo[0].split(",");
+                        if(largoConPunto.length==0){
+                            largoLimite =0;
+                        }else{
+                            largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                        }
+                    }else{
+                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                    }
+                    if(largo[1].contains(".")){
+                        String[] largoConPunto = largo[1].split(",");
+                        if(largoConPunto.length==0){
+                            largoInicio =0;
+                        }else{
+                            largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                        }
+                    }else{
+                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                    }
+                    if(ancho[0].contains(".")){
+                        String[] anchoConPunto = ancho[0].split(",");
+                        if(anchoConPunto.length==0){
+                            anchoLimite =0;
+                        }else{
+                            anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                        }
+                    }else{
+                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                    }
+                    if(ancho[1].contains(".")){
+                        String[] anchoConPunto = ancho[1].split(",");
+                        if(anchoConPunto.length==0){
+                            anchoInicio =0;
+                        }else{
+                            anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                        }
+                    }else{
+                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                    }
+
+                    if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
+                        TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
+                        if( arrayCuadrados.get(i).getChildAt(0).getTag()!=null){
+                            if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(0)){
+                                int colorSeleccionadoShaa = Color.WHITE;
+                                tv.setBackgroundColor(colorSeleccionadoShaa);
+
+                            }else if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(1)){
+                                int colorSeleccionadoShaa = Color.LTGRAY;
+                                tv.setBackgroundColor(colorSeleccionadoShaa);
+
+                            }
+                        }
+
+                    }
                 }
             }
         }
-
     }
 
     public void insertarDatos(){
-        for (int i=0; i<400;i++) {
+        for (int i=0; i<384;i++) {
             if (i%2==0) {
                 Casilla.ITEMS.add(new Casilla(i, 0, 0));
             }
