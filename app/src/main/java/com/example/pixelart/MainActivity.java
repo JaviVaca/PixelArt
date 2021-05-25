@@ -323,7 +323,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void insertarDatos(){
-        for (int i=0; i<256;i++) {
+        for (int i=0; i<400;i++) {
             if (i%2==0) {
                 Casilla.ITEMS.add(new Casilla(i, 0, 0));
             }

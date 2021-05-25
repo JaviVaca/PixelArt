@@ -9,7 +9,7 @@
     <GridView
         android:id="@+id/GridView"
         android:layout_width="378dp"
-        android:layout_height="501dp"
+        android:layout_height="450dp"
         android:gravity="center_horizontal"
         android:numColumns="16"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,19 +26,24 @@
         android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
-        android:padding="4dp"
-        android:paddingBottom="0dp"
+        android:padding="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:rowCount="5"
         android:stretchMode="columnWidth"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GridView"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:id="@+id/con1_1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_marginLeft="5dp"
@@ -53,8 +58,9 @@
 
         <LinearLayout
             android:id="@+id/con2_1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="0"
             android:layout_marginLeft="5dp"
@@ -70,8 +76,9 @@
 
         <LinearLayout
             android:id="@+id/con1_2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="1"
             android:layout_marginLeft="5dp"
@@ -87,8 +94,9 @@
 
         <LinearLayout
             android:id="@+id/con2_2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="1"
             android:layout_marginLeft="5dp"
@@ -101,8 +109,9 @@
 
         <LinearLayout
             android:id="@+id/con1_3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="2"
             android:layout_marginLeft="5dp"
@@ -118,8 +127,9 @@
 
         <LinearLayout
             android:id="@+id/con2_3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="2"
             android:layout_marginLeft="5dp"
@@ -132,8 +142,9 @@
 
         <LinearLayout
             android:id="@+id/con1_4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="3"
             android:layout_marginLeft="5dp"
@@ -149,8 +160,9 @@
 
         <LinearLayout
             android:id="@+id/con2_4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="3"
             android:layout_marginLeft="5dp"
@@ -163,8 +175,9 @@
 
         <LinearLayout
             android:id="@+id/con1_5"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="4"
             android:layout_marginLeft="5dp"
@@ -180,8 +193,9 @@
 
         <LinearLayout
             android:id="@+id/con2_5"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="4"
             android:layout_marginLeft="5dp"
@@ -194,8 +208,9 @@
 
         <LinearLayout
             android:id="@+id/con1_6"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="5"
             android:layout_marginLeft="5dp"
@@ -209,8 +224,9 @@
 
         <LinearLayout
             android:id="@+id/con2_6"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="5"
             android:layout_marginLeft="5dp"
@@ -223,8 +239,9 @@
 
         <LinearLayout
             android:id="@+id/con1_7"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="6"
             android:layout_marginLeft="5dp"
@@ -238,8 +255,9 @@
 
         <LinearLayout
             android:id="@+id/con2_7"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="6"
             android:layout_marginLeft="5dp"
@@ -252,8 +270,9 @@
 
         <LinearLayout
             android:id="@+id/con1_8"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="7"
             android:layout_marginLeft="5dp"
@@ -267,8 +286,9 @@
 
         <LinearLayout
             android:id="@+id/con2_8"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="7"
             android:layout_marginLeft="5dp"
@@ -282,8 +302,9 @@
 
         <LinearLayout
             android:id="@+id/con1_9"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="8"
             android:layout_marginLeft="5dp"
@@ -296,8 +317,9 @@
 
         <LinearLayout
             android:id="@+id/con2_9"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="8"
             android:layout_marginLeft="5dp"
