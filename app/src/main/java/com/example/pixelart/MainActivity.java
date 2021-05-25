@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         for (int i = 0; i< paleta.getChildCount(); i++){
-            int finalI = i;
             paleta.getChildAt(i).setOnClickListener(v -> {
 
                 Drawable colorSeleccionadoBck;
