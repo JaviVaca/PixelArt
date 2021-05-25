@@ -8,6 +8,7 @@ import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -241,7 +242,77 @@ public class MainActivity extends AppCompatActivity {
 
 
         } else if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.borrar))) {
+            for(int i=0;i<arrayInicioFin.size();i++){
+                Log.d("miFiltro",arrayInicioFin.get(i));
+                String[] largoyancho = arrayInicioFin.get(i).split("..->");
+                String[] largo = largoyancho[0].split("/");
+                String[] ancho=largoyancho[1].split("/");
+                Integer largoLimite=-1;
+                Integer largoInicio=-1;
+                Integer anchoLimite=-1;
+                Integer anchoInicio=-1;
+//                String[] eventoX = String.valueOf(event.getX()).split(".");
+//                String[] eventoY = String.valueOf(event.getY()).split(".");
 
+                String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
+                String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
+                if(largo[0].contains(".")){
+                    String[] largoConPunto = largo[0].split(",");
+                    if(largoConPunto.length==0){
+                        largoLimite =0;
+                    }else{
+                        largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                    }
+                }else{
+                    largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                }
+                if(largo[1].contains(".")){
+                    String[] largoConPunto = largo[1].split(",");
+                    if(largoConPunto.length==0){
+                        largoInicio =0;
+                    }else{
+                        largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                    }
+                }else{
+                    largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                }
+                if(ancho[0].contains(".")){
+                    String[] anchoConPunto = ancho[0].split(",");
+                    if(anchoConPunto.length==0){
+                        anchoLimite =0;
+                    }else{
+                        anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                    }
+                }else{
+                    anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                }
+                if(ancho[1].contains(".")){
+                    String[] anchoConPunto = ancho[1].split(",");
+                    if(anchoConPunto.length==0){
+                        anchoInicio =0;
+                    }else{
+                        anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                    }
+                }else{
+                    anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                }
+
+                if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
+                    TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
+                    if( arrayCuadrados.get(i).getChildAt(0).getTag()!=null){
+                        if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(0)){
+                            int colorSeleccionadoSha = Color.WHITE;
+                            tv.setBackgroundColor(colorSeleccionadoSha);
+
+                        }else if( Integer.parseInt(arrayCuadrados.get(i).getChildAt(0).getTag().toString())==(1)){
+                            int colorSeleccionadoSha = Color.LTGRAY;
+                            tv.setBackgroundColor(colorSeleccionadoSha);
+
+                        }
+                    }
+
+                }
+            }
         }
 
     }

@@ -74,15 +74,23 @@ public class AdaptadorGrid extends BaseAdapter {
         tvGrid.setTag(position+"/"+linea);
         if (linea%2==0) {
             if (casilla.getColor()==0) {
+                tvGrid.setTag(0);
                 tvGrid.setBackgroundColor(Color.WHITE);
             }
-            else {tvGrid.setBackgroundColor(Color.LTGRAY);}
+            else {
+                tvGrid.setTag(1);
+                tvGrid.setBackgroundColor(Color.LTGRAY);
+            }
         }
         else {
             if (casilla.getColor()==0) {
+                tvGrid.setTag(1);
                 tvGrid.setBackgroundColor(Color.LTGRAY);
             }
-            else {tvGrid.setBackgroundColor(Color.WHITE);}
+            else {
+                tvGrid.setTag(0);
+                tvGrid.setBackgroundColor(Color.WHITE);
+            }
         }
 
 
