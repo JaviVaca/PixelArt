@@ -20,6 +20,28 @@
 
     </GridView>
 
+    <ImageView
+        android:id="@+id/imagenDibujo"
+        android:layout_width="263dp"
+        android:layout_height="316dp"
+        android:layout_marginBottom="180dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/txtDibujoRandom"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <GridLayout
         android:id="@+id/paleta"
         android:layout_width="385sp"
@@ -312,6 +334,7 @@
     </GridLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -355,6 +378,18 @@
             android:contentDescription="@string/nuevo"
             android:focusable="true"
             app:srcCompat="@drawable/baseline_note_add_black_18dp" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabRandom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/nuevo"
+            android:focusable="true"
+            app:srcCompat="@drawable/random" />
     </LinearLayout>
 
 

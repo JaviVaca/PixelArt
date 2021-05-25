@@ -7,4 +7,9 @@
     <string name="colorSeleccionado">colorSeleccionado</string>
     <string name="cuadradoSeleccionado">cuadradoSeleccionado</string>
     <string name="lineaSeleccionada">lineaSeleccionada</string>
+
+    <string name="casa">Dibuja una Casa</string>
+    <string name="arbol">Dibuja un Arbol</string>
+    <string name="avion">Dibuja un Avión</string>
+    <string name="flor">Dibuja una Flor</string>
 </resources>

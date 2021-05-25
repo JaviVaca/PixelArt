@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.GridLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayInicioFin=new ArrayList<>();
     Context ctx;
 
+
+
+    int m;
+
+    private TextView txtrandom;
+    private ImageView imagenDibujo;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -101,11 +109,13 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabPintar = findViewById(R.id.fabPintar);
         FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
         FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
+        FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
 
+        txtrandom = findViewById(R.id.txtDibujoRandom);
+        imagenDibujo = findViewById(R.id.imagenDibujo);
 
         for (int i = 0; i< paleta.getChildCount(); i++){
             paleta.getChildAt(i).setOnClickListener(v -> {
-
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
                 int colorSeleccionado=-1;
@@ -116,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
                 String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
                 Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
-
             });
         }
 
@@ -155,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
-            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
             Nuevo();
 
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
@@ -166,12 +175,87 @@ public class MainActivity extends AppCompatActivity {
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(200);
         });
-
-
-
+        fabRandom.setOnClickListener(v -> {
+            cargarDibujoDatos();
+        });
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
 
 
+    }
+
+    private void cargarDibujoDatos() {
+
+        Random rand = new Random();
+        m = rand.nextInt(4);
+
+        if (m == 0) {
+            cargarDibujo1();
+        }
+
+        else if(m ==1) {
+
+            cargarDibujo2();
+        }
+
+        else if(m ==2) {
+            cargarDibujo3();
+
+        }
+
+        else if(m ==3){
+            cargarDibujo4();
+
+        }
+    }
+
+    private void cargarDibujo4() {
+
+        txtrandom.setText(R.string.arbol);
+        imagenDibujo.setImageResource(R.drawable.arbol);
+        ocultarDibujo();
+
+    }
+
+    private void cargarDibujo3() {
+
+        txtrandom.setText(R.string.avion);
+        imagenDibujo.setImageResource(R.drawable.avion);
+        ocultarDibujo();
+    }
+
+
+    private void cargarDibujo2() {
+
+        txtrandom.setText(R.string.flor);
+        imagenDibujo.setImageResource(R.drawable.flor);
+        ocultarDibujo();
+    }
+
+    private void cargarDibujo1() {
+
+        txtrandom.setText(R.string.casa);
+        imagenDibujo.setImageResource(R.drawable.casa);
+        ocultarDibujo();
+
+    }
+
+    private void ocultarDibujo() {
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                imagenDibujo.setImageResource(android.R.color.transparent);
+                //finish();
+            }
+        },23250);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                txtrandom.setText("");
+                //finish();
+            }
+        },5250);
     }
 
     private void Nuevo() {
