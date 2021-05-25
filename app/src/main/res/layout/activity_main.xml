@@ -67,10 +67,7 @@
             android:layout_row="0"
             android:layout_column="0"
             android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"
+            android:padding="5dp"
             android:background="@color/white"
             android:orientation="horizontal"
             android:tag="IdImagen1" />
@@ -345,16 +342,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
         app:layout_constraintVertical_bias="0.543">
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPintar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="25dp"
             android:clickable="true"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
             android:contentDescription="@string/pintar"
-            android:focusable="true"
             app:srcCompat="@drawable/baseline_create_black_18dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -362,23 +357,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_margin="25dp"
+            android:layout_margin="20dp"
             android:clickable="true"
             android:contentDescription="@string/borrar"
-            android:focusable="true"
             app:srcCompat="@drawable/eraser" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabNuevo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_margin="20dp"
             android:clickable="true"
-            android:layout_margin="25dp"
+            android:layout_weight="1"
             android:contentDescription="@string/nuevo"
-            android:focusable="true"
             app:srcCompat="@drawable/baseline_note_add_black_18dp" />
-
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabRandom"

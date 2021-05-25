@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -115,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
         imagenDibujo = findViewById(R.id.imagenDibujo);
 
         for (int i = 0; i< paleta.getChildCount(); i++){
+            int finalI = i;
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
@@ -143,10 +145,11 @@ public class MainActivity extends AppCompatActivity {
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabBorrar.setCustomSize(200);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(150);
+            fabRandom.setCustomSize(150);
         });
         fabPintar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
@@ -156,26 +159,37 @@ public class MainActivity extends AppCompatActivity {
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(200);
             fabNuevo.setCustomSize(150);
+            fabRandom.setCustomSize(150);
 
         });
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
-            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
             Nuevo();
 
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(200);
+            fabRandom.setCustomSize(150);
         });
         fabRandom.setOnClickListener(v -> {
+            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            fabBorrar.setCustomSize(150);
+            fabPintar.setCustomSize(150);
+            fabNuevo.setCustomSize(150);
+            fabRandom.setCustomSize(200);
             cargarDibujoDatos();
         });
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
@@ -219,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     private void cargarDibujo3() {
 
         txtrandom.setText(R.string.avion);
-        imagenDibujo.setImageResource(R.drawable.avion);
+        imagenDibujo.setImageResource(R.drawable.arbol);
         ocultarDibujo();
     }
 
@@ -241,20 +255,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void ocultarDibujo() {
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                imagenDibujo.setImageResource(android.R.color.transparent);
-                //finish();
-            }
+        new Handler().postDelayed(() -> {
+            imagenDibujo.setImageResource(android.R.color.transparent);
+            //finish();
         },23250);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                txtrandom.setText("");
-                //finish();
-            }
+        new Handler().postDelayed(() -> {
+            txtrandom.setText("");
+            //finish();
         },5250);
     }
 
