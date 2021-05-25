@@ -17,6 +17,7 @@ import android.util.EventLog;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
@@ -49,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
         gridView = findViewById(R.id.GridView);
         adaptadorGrid = new AdaptadorGrid(this);
         gridView.setAdapter(adaptadorGrid);
+        gridView.setPadding(100,50,100,50);
+
+        paleta = findViewById(R.id.paleta);
+        int widthPixels = getResources().getDisplayMetrics().widthPixels;
 
 
 //        LinearLayout padre =(LinearLayout)tvGrid.getParent();

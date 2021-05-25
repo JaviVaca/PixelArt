@@ -8,16 +8,19 @@
 
     <GridView
         android:id="@+id/GridView"
-        android:layout_width="408dp"
+        android:layout_width="378dp"
         android:layout_height="501dp"
-        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
         android:numColumns="16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024" />
 
     <GridLayout
         android:id="@+id/paleta"
-        android:layout_width="414dp"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/casilla_gris"
         android:columnWidth="450dp"
@@ -317,7 +320,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/fabNuevo"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.619"
+        app:layout_constraintVertical_bias="0.3"
         app:srcCompat="@drawable/eraser" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -330,7 +333,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.619"
+        app:layout_constraintVertical_bias="0.3"
         app:srcCompat="@drawable/baseline_note_add_black_18dp" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -344,7 +347,7 @@
         app:layout_constraintHorizontal_bias="0.385"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.619"
+        app:layout_constraintVertical_bias="0.3"
         app:srcCompat="@drawable/baseline_create_black_18dp" />
 
 
