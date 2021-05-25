@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<LinearLayout> arrayCuadrados=new ArrayList<>();
     ArrayList<String> arrayLimites=new ArrayList<>();
     ArrayList<String> arrayInicioFin=new ArrayList<>();
-    private Boolean pintar=true, borrar=false;
+    Context ctx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,32 +138,58 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        
-        
+
+        ctx = getApplicationContext();
+
         fabBorrar.setOnClickListener(v -> {
-            borrar=true;
-            pintar=false;
             putPref(getString(R.string.seleccionado), getString(R.string.borrar), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
             Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
         });
 
         fabPintar.setOnClickListener(v -> {
-            pintar=true;
-            borrar=false;
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
             Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
         });
-
+        fabNuevo.setOnClickListener(v -> {
+            putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
+            String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+            Nuevo();
+        });
         SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
 
 
     }
 
+    private void Nuevo() {
+        String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+
+        if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.nuevo))) {
+            for(int i=0;i<gridView.getChildCount();i++) {
+                LinearLayout lnHijo=(LinearLayout)gridView.getChildAt(i);
+                TextView tvHijo=(TextView) lnHijo.getChildAt(0);
+
+                if(tvHijo.getTag()!=null){
+                    if(Integer.parseInt(tvHijo.getTag().toString())==0){
+                        int colorSeleccionadoSha = Color.WHITE;
+                        tvHijo.setBackgroundColor(colorSeleccionadoSha);
+
+                    }else if(Integer.parseInt(tvHijo.getTag().toString())==1){
+                        int colorSeleccionadoSha = Color.LTGRAY;
+                        tvHijo.setBackgroundColor(colorSeleccionadoSha);
+                    }
+                }
+
+            }
+
+
+        }
+    }
+
     private void pintarBorrar(View v, MotionEvent event) {
-        Context ctx = getApplicationContext();
 
         String valorSeleccionado = getPref(ctx.getString(R.string.seleccionado), ctx);
 
