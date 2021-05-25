@@ -1,12 +1,10 @@
 package com.example.pixelart;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class Casilla {
-    private int id;
-    private int color;
+    private final int id;
+    private final int color;
     private int linea;
     public static ArrayList<Casilla> ITEMS= new ArrayList<>();
 
@@ -24,11 +22,11 @@ public class Casilla {
         return color;
     }
 
-    public int getLinea() {return linea;}
+    //public int getLinea() {return linea;}
 
-    public void setColor(int color) {
+    /*public void setColor(int color) {
         this.color = color;
-    }
+    }*/
 
     public void setLinea(int linea) {
         this.linea = linea;
