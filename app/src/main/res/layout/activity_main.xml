@@ -16,19 +16,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.100000024">
+
+    </GridView>
 
     <GridLayout
         android:id="@+id/paleta"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/casilla_gris"
         android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
         android:padding="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:rowCount="5"
         android:stretchMode="columnWidth"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,11 +43,11 @@
 
         <LinearLayout
             android:id="@+id/con1_1"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="0"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -58,11 +60,11 @@
 
         <LinearLayout
             android:id="@+id/con2_1"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="0"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -76,11 +78,11 @@
 
         <LinearLayout
             android:id="@+id/con1_2"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="1"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -94,11 +96,11 @@
 
         <LinearLayout
             android:id="@+id/con2_2"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="1"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -109,11 +111,11 @@
 
         <LinearLayout
             android:id="@+id/con1_3"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="2"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -127,11 +129,11 @@
 
         <LinearLayout
             android:id="@+id/con2_3"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="2"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -142,11 +144,11 @@
 
         <LinearLayout
             android:id="@+id/con1_4"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="3"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -160,11 +162,11 @@
 
         <LinearLayout
             android:id="@+id/con2_4"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="3"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -175,11 +177,11 @@
 
         <LinearLayout
             android:id="@+id/con1_5"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="4"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -193,11 +195,11 @@
 
         <LinearLayout
             android:id="@+id/con2_5"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="4"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -208,11 +210,11 @@
 
         <LinearLayout
             android:id="@+id/con1_6"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="5"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -224,11 +226,11 @@
 
         <LinearLayout
             android:id="@+id/con2_6"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="5"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -239,11 +241,11 @@
 
         <LinearLayout
             android:id="@+id/con1_7"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="6"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -255,11 +257,11 @@
 
         <LinearLayout
             android:id="@+id/con2_7"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="6"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -270,11 +272,11 @@
 
         <LinearLayout
             android:id="@+id/con1_8"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="7"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -286,11 +288,11 @@
 
         <LinearLayout
             android:id="@+id/con2_8"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="7"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -302,11 +304,11 @@
 
         <LinearLayout
             android:id="@+id/con1_9"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="8"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -317,11 +319,11 @@
 
         <LinearLayout
             android:id="@+id/con2_9"
-            android:layout_gravity="center"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="8"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -332,45 +334,48 @@
 
     </GridLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBorrar"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="76dp"
-        android:clickable="true"
-        android:contentDescription="@string/borrar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fabNuevo"
-        app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/eraser" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNuevo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="44dp"
-        android:clickable="true"
-        android:contentDescription="@string/nuevo"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/baseline_note_add_black_18dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabPintar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/pintar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/fabBorrar"
-        app:layout_constraintHorizontal_bias="0.385"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.3"
-        app:srcCompat="@drawable/baseline_create_black_18dp" />
+        app:layout_constraintVertical_bias="0.092">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPintar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/pintar"
+            app:srcCompat="@drawable/baseline_create_black_18dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:contentDescription="@string/borrar"
+            app:srcCompat="@drawable/eraser" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabNuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:contentDescription="@string/nuevo"
+            app:srcCompat="@drawable/baseline_note_add_black_18dp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
