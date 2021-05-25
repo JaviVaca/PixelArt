@@ -22,23 +22,20 @@
 
     <GridLayout
         android:id="@+id/paleta"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="385sp"
+        android:layout_height="101dp"
+        android:layout_margin="@dimen/default_gap"
         android:background="@color/casilla_gris"
-        android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
         android:padding="10dp"
-        android:rowCount="5"
-        android:stretchMode="columnWidth"
+        android:rowCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GridView"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.033"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -54,9 +51,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:tag="IdImagen1">
-
-        </LinearLayout>
+            android:tag="IdImagen1" />
 
         <LinearLayout
             android:id="@+id/con2_1"
@@ -71,10 +66,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/black"
             android:orientation="horizontal"
-            android:tag="IdImagen2">
-
-        </LinearLayout>
-
+            android:tag="IdImagen2" />
 
         <LinearLayout
             android:id="@+id/con1_2"
@@ -89,10 +81,7 @@
             android:layout_marginBottom="5dp"
             android:background="#00BCD4"
             android:orientation="horizontal"
-            android:tag="IdImagen11">
-
-
-        </LinearLayout>
+            android:tag="IdImagen11" />
 
         <LinearLayout
             android:id="@+id/con2_2"
@@ -122,10 +111,7 @@
             android:layout_marginBottom="5dp"
             android:background="#FF9800"
             android:orientation="horizontal"
-            android:tag="IdImagen11">
-
-
-        </LinearLayout>
+            android:tag="IdImagen11" />
 
         <LinearLayout
             android:id="@+id/con2_3"
@@ -155,10 +141,7 @@
             android:layout_marginBottom="5dp"
             android:background="#2196F3"
             android:orientation="horizontal"
-            android:tag="IdImagen11">
-
-
-        </LinearLayout>
+            android:tag="IdImagen11" />
 
         <LinearLayout
             android:id="@+id/con2_4"
@@ -188,10 +171,7 @@
             android:layout_marginBottom="5dp"
             android:background="#3F51B5"
             android:orientation="horizontal"
-            android:tag="IdImagen11">
-
-
-        </LinearLayout>
+            android:tag="IdImagen11" />
 
         <LinearLayout
             android:id="@+id/con2_5"
@@ -223,7 +203,6 @@
             android:orientation="horizontal"
             android:tag="IdImagen11" />
 
-
         <LinearLayout
             android:id="@+id/con2_6"
             android:layout_width="30dp"
@@ -253,7 +232,6 @@
             android:background="#9C27B0"
             android:orientation="horizontal"
             android:tag="IdImagen11" />
-
 
         <LinearLayout
             android:id="@+id/con2_7"
@@ -285,7 +263,6 @@
             android:orientation="horizontal"
             android:tag="IdImagen11" />
 
-
         <LinearLayout
             android:id="@+id/con2_8"
             android:layout_width="30dp"
@@ -300,7 +277,6 @@
             android:background="#4CAF50"
             android:orientation="horizontal"
             android:tag="IdImagen22" />
-
 
         <LinearLayout
             android:id="@+id/con1_9"
@@ -332,6 +308,7 @@
             android:orientation="horizontal"
             android:tag="IdImagen22" />
 
+
     </GridLayout>
 
     <LinearLayout
@@ -350,8 +327,8 @@
             android:id="@+id/fabPintar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_weight="1"
+            android:layout_margin="25dp"
             android:clickable="true"
             android:contentDescription="@string/pintar"
             android:focusable="true"
@@ -361,8 +338,8 @@
             android:id="@+id/fabBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_weight="1"
+            android:layout_margin="25dp"
             android:clickable="true"
             android:contentDescription="@string/borrar"
             android:focusable="true"
@@ -372,9 +349,9 @@
             android:id="@+id/fabNuevo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
             android:layout_weight="1"
             android:clickable="true"
+            android:layout_margin="25dp"
             android:contentDescription="@string/nuevo"
             android:focusable="true"
             app:srcCompat="@drawable/baseline_note_add_black_18dp" />

@@ -3,6 +3,7 @@ package com.example.pixelart;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -29,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayLimites=new ArrayList<>();
     ArrayList<String> arrayInicioFin=new ArrayList<>();
     Context ctx;
+
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,8 +102,11 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
         FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
 
+
         for (int i = 0; i< paleta.getChildCount(); i++){
+            int finalI = i;
             paleta.getChildAt(i).setOnClickListener(v -> {
+
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
                 int colorSeleccionado=-1;
@@ -111,29 +117,59 @@ public class MainActivity extends AppCompatActivity {
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
                 String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
                 Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+
             });
         }
 
         ctx = getApplicationContext();
 
+        /* Listeners para cada botón. Hacen lo que tienen que hacer y ademas
+           se cambia color y tamaño del boton seleccionado. El resto de botones vuelven a su estado inicial*/
+
         fabBorrar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.borrar), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
-            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
-        });
+            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
+
+            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+
+            fabBorrar.setCustomSize(200);
+            fabPintar.setCustomSize(150);
+            fabNuevo.setCustomSize(150);
+        });
         fabPintar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
-            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+
+            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabBorrar.setCustomSize(150);
+            fabPintar.setCustomSize(200);
+            fabNuevo.setCustomSize(150);
 
         });
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
             String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
-            Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
             Nuevo();
+
+            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+
+            fabBorrar.setCustomSize(150);
+            fabPintar.setCustomSize(150);
+            fabNuevo.setCustomSize(200);
         });
+
+
+
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
 
 
@@ -335,10 +371,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     public static String getPref(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
     }
+
     public static void putPref(String key, String value, Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
