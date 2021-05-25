@@ -1,14 +1,10 @@
 <resources>
     <string name="app_name">PixelArt</string>
-    <string name="texto1">Bienvenid@</string>
-    <string name="dibujo1">Dibuja una casa</string>
-    <string name="dibujo2">Dibuja el sol</string>
-    <string name="dibujo3">Dibuja un arbol</string>
-    <string name="dibujo4">Dibuja un puente</string>
-    <string name="btnreiniciar">Reiniciar</string>
-    <string name="btnrandom">Aleatorio</string>
-    <string name="casa">Dibuja una Casa</string>
-    <string name="arbol">Dibuja un Arbol</string>
-    <string name="avion">Dibuja un Avión</string>
-    <string name="flor">Dibuja una Flor</string>
+    <string name="nuevo">Nuevo</string>
+    <string name="borrar">Borrar</string>
+    <string name="pintar">Pintar</string>
+    <string name="seleccionado">seleccionado</string>
+    <string name="colorSeleccionado">colorSeleccionado</string>
+    <string name="cuadradoSeleccionado">cuadradoSeleccionado</string>
+    <string name="lineaSeleccionada">lineaSeleccionada</string>
 </resources>

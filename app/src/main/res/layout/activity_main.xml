@@ -8,42 +8,46 @@
 
     <GridView
         android:id="@+id/GridView"
-        android:layout_width="408dp"
-        android:layout_height="501dp"
-        android:layout_marginTop="88dp"
+        android:layout_width="378dp"
+        android:layout_height="450dp"
+        android:gravity="center_horizontal"
         android:numColumns="16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.100000024">
+
+    </GridView>
 
     <GridLayout
         android:id="@+id/paleta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@color/casilla_gris"
         android:columnWidth="450dp"
         android:columnCount="9"
         android:orientation="vertical"
-
-        android:padding="3dp"
-        android:paddingLeft="74dp"
-
-
-        android:paddingBottom="0dp"
+        android:padding="10dp"
         android:rowCount="5"
         android:stretchMode="columnWidth"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GridView"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
             android:id="@+id/con1_1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="0"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -56,10 +60,11 @@
 
         <LinearLayout
             android:id="@+id/con2_1"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="0"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -73,10 +78,11 @@
 
         <LinearLayout
             android:id="@+id/con1_2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="1"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -90,10 +96,11 @@
 
         <LinearLayout
             android:id="@+id/con2_2"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="1"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -104,10 +111,11 @@
 
         <LinearLayout
             android:id="@+id/con1_3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="2"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -121,10 +129,11 @@
 
         <LinearLayout
             android:id="@+id/con2_3"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="2"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -135,10 +144,11 @@
 
         <LinearLayout
             android:id="@+id/con1_4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="3"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -152,10 +162,11 @@
 
         <LinearLayout
             android:id="@+id/con2_4"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="3"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -166,10 +177,11 @@
 
         <LinearLayout
             android:id="@+id/con1_5"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="4"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -183,10 +195,11 @@
 
         <LinearLayout
             android:id="@+id/con2_5"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="4"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -197,10 +210,11 @@
 
         <LinearLayout
             android:id="@+id/con1_6"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="0"
             android:layout_column="5"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -212,10 +226,11 @@
 
         <LinearLayout
             android:id="@+id/con2_6"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_row="1"
             android:layout_column="5"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -226,10 +241,11 @@
 
         <LinearLayout
             android:id="@+id/con1_7"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="0"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="0"
+            android:layout_column="6"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -241,10 +257,11 @@
 
         <LinearLayout
             android:id="@+id/con2_7"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="1"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="1"
+            android:layout_column="6"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -255,10 +272,11 @@
 
         <LinearLayout
             android:id="@+id/con1_8"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="4"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="0"
+            android:layout_column="7"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -270,10 +288,11 @@
 
         <LinearLayout
             android:id="@+id/con2_8"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="5"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="1"
+            android:layout_column="7"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -282,12 +301,14 @@
             android:orientation="horizontal"
             android:tag="IdImagen22" />
 
+
         <LinearLayout
             android:id="@+id/con1_9"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="2"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="0"
+            android:layout_column="8"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -296,13 +317,13 @@
             android:orientation="horizontal"
             android:tag="IdImagen11" />
 
-
         <LinearLayout
             android:id="@+id/con2_9"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_row="2"
-            android:layout_column="3"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_row="1"
+            android:layout_column="8"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
@@ -313,53 +334,48 @@
 
     </GridLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/texto1"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/GridView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnreiniciar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/btnreiniciar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
-        tools:ignore="OnClick" />
-
-    <Button
-        android:id="@+id/btnrandom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onClick"
-        android:text="@string/btnrandom"
+        android:orientation="horizontal"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.018"
-        tools:ignore="OnClick" />
-
-    <TextView
-        android:id="@+id/txtrandom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/paleta"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.577"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.969" />
+        app:layout_constraintTop_toBottomOf="@+id/paleta"
+        app:layout_constraintVertical_bias="0.092">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPintar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/pintar"
+            app:srcCompat="@drawable/baseline_create_black_18dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:contentDescription="@string/borrar"
+            app:srcCompat="@drawable/eraser" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabNuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            android:layout_weight="1"
+            android:contentDescription="@string/nuevo"
+            app:srcCompat="@drawable/baseline_note_add_black_18dp" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
