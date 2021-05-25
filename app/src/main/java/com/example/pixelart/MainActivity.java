@@ -186,8 +186,11 @@ public class MainActivity extends AppCompatActivity {
                 Integer largoInicio=-1;
                 Integer anchoLimite=-1;
                 Integer anchoInicio=-1;
-                String[] eventoX = String.valueOf(event.getX()).split(".");
-                String[] eventoY = String.valueOf(event.getY()).split(".");
+//                String[] eventoX = String.valueOf(event.getX()).split(".");
+//                String[] eventoY = String.valueOf(event.getY()).split(".");
+
+                String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
+                String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
                 if(largo[0].contains(".")){
                     String[] largoConPunto = largo[0].split(",");
                     if(largoConPunto.length==0){
@@ -229,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
                 }
 
-                if(Integer.parseInt(eventoX[0])<=anchoLimite&&Integer.parseInt(eventoX[0])>=anchoInicio&&Integer.parseInt(eventoY[0])<=largoLimite&&Integer.parseInt(eventoY[0])>=largoInicio){
+                if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
                     TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
                     String colorSeleccionadoSha = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
                     tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoSha));
