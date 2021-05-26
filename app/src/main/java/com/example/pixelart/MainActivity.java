@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
                 imagenDibujo.setImageResource(android.R.color.transparent);
                 //finish();
             }
-        },23250);
+        },1000);
 
         new Handler().postDelayed(new Runnable() {
             @Override
