@@ -160,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
                             ArrayList<String> item = new ArrayList<>();
                             item.add(hexColor);
 
+
                             shape.setColor(Color.parseColor(item.get(0)));
                             shape.setStroke(0, Color.TRANSPARENT);
 
