@@ -129,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int color=Color.TRANSPARENT;
                 String hexColor = null;
+
                 for(int z=0;z<paleta.getChildCount();z++) {
                     GradientDrawable shape = new GradientDrawable();
                     shape.setShape(GradientDrawable.RECTANGLE);
