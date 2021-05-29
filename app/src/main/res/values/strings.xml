@@ -12,4 +12,5 @@
     <string name="arbol">Dibuja un Arbol</string>
     <string name="avion">Dibuja un Avión</string>
     <string name="flor">Dibuja una Flor</string>
+    <string name="colorSeleccionadoCasilla">casillacolorseleccionado</string>
 </resources>

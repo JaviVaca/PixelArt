@@ -6,9 +6,11 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -115,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i< paleta.getChildCount(); i++){
             int finalI = i;
+            int finalI1 = i;
+            int finalI2 = i;
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
@@ -138,14 +142,33 @@ public class MainActivity extends AppCompatActivity {
                         int colorId = viewColor.getColor();
                         hexColor = String.format("#%06X", (0xFFFFFF & colorId));
                     }
+                    if (background0 instanceof GradientDrawable) {
+//                        color = ((ColorDrawable) background0).getColor();
+//                        PorterDuffColorFilter greyFilter = new PorterDuffColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+//                        myLayout.getBackground().setColorFilter(greyFilter);
 
+//                        ColorDrawable viewColor = (ColorDrawable) lnC.getBackground();
+//                        int colorId = viewColor.getColor();
+//                        hexColor = String.format("#%06X", (0xFFFFFF & colorId));
+                        int indexOfMyView = ((ViewGroup) v.getParent()).indexOfChild(v);
 
-                    shape.setColor(Color.parseColor(hexColor));
-                    shape.setStroke(3, Color.BLACK);
+                        if(indexOfMyView==Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))){
+                            int colorIdpref = Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
+                            hexColor=String.format("#%06X", (0xFFFFFF & colorIdpref));
+                            ArrayList<String> item = new ArrayList<>();
+                            item.add(hexColor);
 
-                    shape.setCornerRadius(5);
-                    shape.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
-                    lnC.setBackgroundDrawable(shape);
+                            shape.setColor(Color.parseColor(item.get(0)));
+                            shape.setStroke(0, Color.TRANSPARENT);
+
+                            shape.setCornerRadius(5);
+                            shape.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+                            lnC.setBackgroundResource(0);
+                            lnC.setBackgroundDrawable(shape);
+
+                        }
+
+                    }
 
                     if (paleta.getChildAt(z) instanceof LinearLayout) {
                         LinearLayout lns = (LinearLayout) paleta.getChildAt(z);
@@ -158,25 +181,9 @@ public class MainActivity extends AppCompatActivity {
                             hexColor = String.format("#%06X", (0xFFFFFF & colorId));
 
 
-//                            if ( lns.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.color_seleccionado).getConstantState()))
-//                            {
-//
-//                                String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
-//                                int colorIdPref = viewColor.getColor();
-//                                String prefColorS = String.format("#%06X", (0xFFFFFF & colorIdPref));
-//                                lns.setBackgroundColor(Color.parseColor(prefColorS));
-////                                GradientDrawable shape = new GradientDrawable();
-////                                shape.setShape(GradientDrawable.RECTANGLE);
-////                                shape.setColor(Integer.parseInt(prefColorS));
-////                                shape.setStroke(3, Color.YELLOW);
-////
-////                                shape.setCornerRadius(15);
-////                                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
-////                                ln.setBackgroundDrawable(shape);
-//                            }else{
-                                GradientDrawable shape3 = new GradientDrawable();
+                            GradientDrawable shape3 = new GradientDrawable();
                             shape3.setShape(GradientDrawable.RECTANGLE);
-                            shape3.setColor(Color.parseColor(getPref(getString(R.string.colorSeleccionado),ctx)));
+                            shape3.setColor(Color.parseColor(hexColor));
                             shape3.setStroke(0, Color.BLACK);
 
                             shape3.setCornerRadius(0);
@@ -205,11 +212,13 @@ public class MainActivity extends AppCompatActivity {
 
                 shape.setCornerRadius(25);
 //                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
+                ln.setBackgroundResource(0);
                 ln.setBackgroundDrawable(shape);
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
                 String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
                 Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
