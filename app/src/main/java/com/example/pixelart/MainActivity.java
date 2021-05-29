@@ -150,9 +150,11 @@ public class MainActivity extends AppCompatActivity {
 //                        ColorDrawable viewColor = (ColorDrawable) lnC.getBackground();
 //                        int colorId = viewColor.getColor();
 //                        hexColor = String.format("#%06X", (0xFFFFFF & colorId));
-                        int indexOfMyView = ((ViewGroup) v.getParent()).indexOfChild(v);
+                        int indexOfMyView = ((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z));
+                        View viewOfMyViewPref = ((ViewGroup) v.getParent()).getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)));
+                        int indexOfMyViewPref = ((ViewGroup) viewOfMyViewPref.getParent()).indexOfChild(viewOfMyViewPref);
 
-                        if(indexOfMyView==Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))){
+                        if(indexOfMyView==indexOfMyViewPref){
                             int colorIdpref = Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
                             hexColor=String.format("#%06X", (0xFFFFFF & colorIdpref));
                             ArrayList<String> item = new ArrayList<>();
