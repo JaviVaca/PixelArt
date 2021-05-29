@@ -136,20 +136,12 @@ public class MainActivity extends AppCompatActivity {
                     LinearLayout lnC = (LinearLayout) paleta.getChildAt(z);
                     Drawable background0 = lnC.getBackground();
                     if (background0 instanceof ColorDrawable) {
-                        color = ((ColorDrawable) background0).getColor();
 
                         ColorDrawable viewColor = (ColorDrawable) lnC.getBackground();
                         int colorId = viewColor.getColor();
                         hexColor = String.format("#%06X", (0xFFFFFF & colorId));
                     }
                     if (background0 instanceof GradientDrawable) {
-//                        color = ((ColorDrawable) background0).getColor();
-//                        PorterDuffColorFilter greyFilter = new PorterDuffColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
-//                        myLayout.getBackground().setColorFilter(greyFilter);
-
-//                        ColorDrawable viewColor = (ColorDrawable) lnC.getBackground();
-//                        int colorId = viewColor.getColor();
-//                        hexColor = String.format("#%06X", (0xFFFFFF & colorId));
                         int indexOfMyView = ((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z));
                         View viewOfMyViewPref = ((ViewGroup) v.getParent()).getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)));
                         int indexOfMyViewPref = ((ViewGroup) viewOfMyViewPref.getParent()).indexOfChild(viewOfMyViewPref);
@@ -177,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
                         LinearLayout lns = (LinearLayout) paleta.getChildAt(z);
                         Drawable background = lns.getBackground();
                         if (background instanceof ColorDrawable) {
-                            color = ((ColorDrawable) background).getColor();
 
                             ColorDrawable viewColor = (ColorDrawable) lns.getBackground();
                             int colorId = viewColor.getColor();
