@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -55,25 +56,6 @@ public class MainActivity extends AppCompatActivity {
         gridView.setPadding(100,50,100,50);
         paleta = findViewById(R.id.paleta);
 
-//        for(int i=0;i<paleta.getChildCount();i++) {
-//            if (paleta.getChildAt(i) instanceof LinearLayout) {
-//                LinearLayout ln = (LinearLayout) paleta.getChildAt(i);
-//                ln.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        for(int z=0;z<paleta.getChildCount();z++) {
-//                            if (paleta.getChildAt(z) instanceof LinearLayout) {
-//                                LinearLayout ln = (LinearLayout) paleta.getChildAt(z);
-//                                ln.setBackgroundResource(0);
-//                            }
-//                        }
-//                        LinearLayout ln = (LinearLayout) v;
-//                        ln.setBackground(getDrawable(R.drawable.color_seleccionado));
-//                    }
-//                });
-//            }
-//        }
-
         gridView.setOnTouchListener((v, event) -> {
             arrayCuadrados.clear();
             arrayLimites.clear();
@@ -88,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
                 int marginleftGridView=0;
                 int margintopGridView=0;
-//                    int marginleftGridView=outLocation[0];
-//                    int margintopGridView=outLocation[1];
 
                 float xHijo = lnHijo.getX();
                 float yHijo = lnHijo.getY();
@@ -143,11 +123,30 @@ public class MainActivity extends AppCompatActivity {
                     colorSeleccionado = ((ColorDrawable) colorSeleccionadoBck).getColor();
                 }
 
-                putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
-                String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
-                Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
                 int color=Color.TRANSPARENT;
+                String hexColor = null;
                 for(int z=0;z<paleta.getChildCount();z++) {
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.RECTANGLE);
+
+                    LinearLayout lnC = (LinearLayout) paleta.getChildAt(z);
+                    Drawable background0 = lnC.getBackground();
+                    if (background0 instanceof ColorDrawable) {
+                        color = ((ColorDrawable) background0).getColor();
+
+                        ColorDrawable viewColor = (ColorDrawable) lnC.getBackground();
+                        int colorId = viewColor.getColor();
+                        hexColor = String.format("#%06X", (0xFFFFFF & colorId));
+                    }
+
+
+                    shape.setColor(Color.parseColor(hexColor));
+                    shape.setStroke(3, Color.BLACK);
+
+                    shape.setCornerRadius(5);
+                    shape.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+                    lnC.setBackgroundDrawable(shape);
+
                     if (paleta.getChildAt(z) instanceof LinearLayout) {
                         LinearLayout lns = (LinearLayout) paleta.getChildAt(z);
                         Drawable background = lns.getBackground();
@@ -156,13 +155,41 @@ public class MainActivity extends AppCompatActivity {
 
                             ColorDrawable viewColor = (ColorDrawable) lns.getBackground();
                             int colorId = viewColor.getColor();
-                            String hexColor = String.format("#%06X", (0xFFFFFF & colorId));
+                            hexColor = String.format("#%06X", (0xFFFFFF & colorId));
 
-                            lns.setBackgroundColor(Color.parseColor(hexColor));
+
+//                            if ( lns.getBackground().getConstantState().equals(getResources().getDrawable(R.drawable.color_seleccionado).getConstantState()))
+//                            {
+//
+//                                String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+//                                int colorIdPref = viewColor.getColor();
+//                                String prefColorS = String.format("#%06X", (0xFFFFFF & colorIdPref));
+//                                lns.setBackgroundColor(Color.parseColor(prefColorS));
+////                                GradientDrawable shape = new GradientDrawable();
+////                                shape.setShape(GradientDrawable.RECTANGLE);
+////                                shape.setColor(Integer.parseInt(prefColorS));
+////                                shape.setStroke(3, Color.YELLOW);
+////
+////                                shape.setCornerRadius(15);
+////                                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
+////                                ln.setBackgroundDrawable(shape);
+//                            }else{
+                                GradientDrawable shape3 = new GradientDrawable();
+                            shape3.setShape(GradientDrawable.RECTANGLE);
+                            shape3.setColor(Color.parseColor(getPref(getString(R.string.colorSeleccionado),ctx)));
+                            shape3.setStroke(0, Color.BLACK);
+
+                            shape3.setCornerRadius(0);
+                            shape3.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+                                lns.setBackgroundDrawable(shape3);
+                                lns.setBackgroundResource(0);
+                                lns.setBackgroundColor(Color.parseColor(hexColor));
+//                            }
 
                         }
                     }
                 }
+
                 LinearLayout ln = (LinearLayout) v;
                 Drawable background = ln.getBackground();
                 if (background instanceof ColorDrawable) {
@@ -171,7 +198,20 @@ public class MainActivity extends AppCompatActivity {
                     String rgbColor= String.format("#%06X", (0xFFFFFF & color));
                     ln.getBackground().setColorFilter(Color.rgb(40, 50, 60), PorterDuff.Mode.SRC_ATOP);
                 }
-                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
+                GradientDrawable shape = new GradientDrawable();
+                shape.setShape(GradientDrawable.RECTANGLE);
+                shape.setColor(colorSeleccionado);
+                shape.setStroke(8, Color.YELLOW);
+
+                shape.setCornerRadius(25);
+//                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
+                ln.setBackgroundDrawable(shape);
+
+
+//                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
+                putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+                Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
             });
         }
