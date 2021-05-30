@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     int m;
     private TextView txtrandom;
     private ImageView imagenDibujo;
+    private ArrayList<Integer> colores=new ArrayList<>();
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
@@ -122,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
             int finalI = i;
             int finalI1 = i;
             int finalI2 = i;
+
+            Drawable drawable = paleta.getChildAt(i).getBackground();
+            if (drawable instanceof ColorDrawable) {
+                int color = ((ColorDrawable) drawable).getColor();
+                colores.add(color);
+            }
+
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
@@ -151,13 +160,16 @@ public class MainActivity extends AppCompatActivity {
                         int indexOfMyViewPref = ((ViewGroup) viewOfMyViewPref.getParent()).indexOfChild(viewOfMyViewPref);
 
                         if(indexOfMyView==indexOfMyViewPref){
-                            int colorIdpref = Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
-                            hexColor=String.format("#%06X", (0xFFFFFF & colorIdpref));
+                            String hexColors = String.format("#%06X", (0xFFFFFF & (colores.get(((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z))))));
+
+//                            int colorIdpref = Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
+//                            hexColor=String.format("#%06X", (0xFFFFFF & colorIdpref));
                             ArrayList<String> item = new ArrayList<>();
                             item.add(hexColor);
 
 
-                            shape.setColor(Color.parseColor(item.get(0)));
+//                            shape.setColor(Color.parseColor(item.get(0)));
+                            shape.setColor(Color.parseColor(hexColors));
                             shape.setStroke(0, Color.TRANSPARENT);
 
                             shape.setCornerRadius(5);
@@ -244,11 +256,12 @@ public class MainActivity extends AppCompatActivity {
                    color=colorGradient.getDefaultColor();
 
                     String rgbColor= String.format("#%06X", (0xFFFFFF & color));
-                    int[] rgba = (getRGB(Color.parseColor(rgbColor)));
-                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
+//                    int[] rgba = (getRGB(Color.parseColor(String.valueOf(colores.get(((ViewGroup) v.getParent()).indexOfChild(v))))));
+//                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
                     GradientDrawable shape = new GradientDrawable();
                     shape.setShape(GradientDrawable.RECTANGLE);
-                    shape.setColor(Color.parseColor(rgbColor));
+                    String hexColors = String.format("#%06X", (0xFFFFFF & (colores.get(((ViewGroup) v.getParent()).indexOfChild(v)))));
+                    shape.setColor(Color.parseColor(hexColors));
 //                    shape.setColor(colorSeleccionado);
                     shape.setStroke(8, Color.YELLOW);
 
