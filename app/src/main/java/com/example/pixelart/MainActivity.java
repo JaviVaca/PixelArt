@@ -134,7 +134,10 @@ public class MainActivity extends AppCompatActivity {
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
-                int colorSeleccionado= Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
+
+
+//                int colorSeleccionado= Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
+                int colorSeleccionado=0;
                 if (colorSeleccionadoBck instanceof ColorDrawable) {
                     colorSeleccionado = ((ColorDrawable) colorSeleccionadoBck).getColor();
                 }
@@ -228,10 +231,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
-                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                    String hexColors = String.format("#%06X", (0xFFFFFF & (colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)))))));
+
+                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
                     String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
-                    Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "valor seleccionado click->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
@@ -272,10 +277,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
-                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+//                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
                     String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
-                    Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "valor seleccionado putpref->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
