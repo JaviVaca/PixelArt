@@ -667,15 +667,21 @@ public class MainActivity extends AppCompatActivity {
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
         int porcentajePantalla=60;
-        numeroColumnas=14;
+        numeroColumnas=12;
 
         int ancho=widthPixels/numeroColumnas;
         int numCasillas=heightPixels/ancho;
+        numeroColumnas=16;
+
         numCasillas=numCasillas*numeroColumnas;
 
 //        384/
 
-        for (int i=0; i<384;i++) {
+        if(numCasillas%16!=0){
+            int resultado=numCasillas%16;
+            int resyutl=resultado;
+        }
+        for (int i=0; i<numCasillas;i++) {
             if (i%2==0) {
                 Casilla.ITEMS.add(new Casilla(i, 0, 0));
             }
