@@ -37,6 +37,7 @@ public class AdaptadorGrid extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
+        int numCol = 20;
         int numeroColumnas = 16;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -48,10 +49,13 @@ public class AdaptadorGrid extends BaseAdapter {
 //        context.getResources().getDisplayMetrics();
 //        this.context.getResources().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
-
+//        int heightPixels = context.getResources().getDisplayMetrics().heightPixels;
+//        int porcentajePantalla=60;
         TextView tvGrid = view.findViewById(R.id.tvGrid);
-        int ancho=widthPixels/numeroColumnas;
+        int ancho=widthPixels/numCol;
+//        int alto=heightPixels*porcentajePantalla/100;
         tvGrid.setWidth(ancho);
+        tvGrid.setHeight(ancho);
 //        tvGrid.setLayoutParams(new ViewGroup.LayoutParams(
 //                ancho,
 //                ViewGroup.LayoutParams.MATCH_PARENT));

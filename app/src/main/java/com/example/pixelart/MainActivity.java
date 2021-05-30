@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtrandom;
     private ImageView imagenDibujo;
     private ArrayList<Integer> colores=new ArrayList<>();
+    private int numeroColumnas;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
@@ -370,32 +371,7 @@ public class MainActivity extends AppCompatActivity {
         ajustarVista();
     }
 
-    private void ajustarVista() {
-        int widthPixels = getResources().getDisplayMetrics().widthPixels;
-        int numeroColumnas=14;
-        for (int i=0;i<paleta.getChildCount();i++){
-            LinearLayout lnGrid = (LinearLayout)paleta.getChildAt(i);
-            int ancho=widthPixels/numeroColumnas;
-// Changes the height and width to the specified *pixels*
 
-
-            ViewGroup.LayoutParams paramsLnGrid = lnGrid.getLayoutParams();
-            paramsLnGrid.height = ancho;
-            paramsLnGrid.width = ancho;
-            lnGrid.setLayoutParams(paramsLnGrid);
-            int padding=10;
-            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) lnGrid.getLayoutParams();
-            p.setMargins(padding,padding,padding,padding);
-//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-//                    ancho, ancho);
-//
-////            layoutParams.setMargins(30, 20, 30, 0);
-//            layoutParams.setMargins(4,4,4,4);
-//            lnGrid.setLayoutParams(layoutParams);
-        }
-
-
-    }
 
     public static int[] getRGB(final int hex) {
         int r = (hex & 0xFF0000) >> 16;
@@ -661,8 +637,44 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    private void ajustarVista() {
+        int widthPixels = getResources().getDisplayMetrics().widthPixels;
+        int numeroColumnas=14;
+        for (int i=0;i<paleta.getChildCount();i++){
+            LinearLayout lnGrid = (LinearLayout)paleta.getChildAt(i);
+            int ancho=widthPixels/numeroColumnas;
+// Changes the height and width to the specified *pixels*
 
+
+            ViewGroup.LayoutParams paramsLnGrid = lnGrid.getLayoutParams();
+            paramsLnGrid.height = ancho;
+            paramsLnGrid.width = ancho;
+            lnGrid.setLayoutParams(paramsLnGrid);
+            int padding=10;
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) lnGrid.getLayoutParams();
+            p.setMargins(padding,padding,padding,padding);
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                    ancho, ancho);
+//
+////            layoutParams.setMargins(30, 20, 30, 0);
+//            layoutParams.setMargins(4,4,4,4);
+//            lnGrid.setLayoutParams(layoutParams);
+        }
+
+
+    }
     public void insertarDatos(){
+        int widthPixels = getResources().getDisplayMetrics().widthPixels;
+        int heightPixels = getResources().getDisplayMetrics().heightPixels;
+        int porcentajePantalla=60;
+        numeroColumnas=14;
+
+        int ancho=widthPixels/numeroColumnas;
+        int numCasillas=heightPixels/ancho;
+        numCasillas=numCasillas*numeroColumnas;
+
+//        384/
+
         for (int i=0; i<384;i++) {
             if (i%2==0) {
                 Casilla.ITEMS.add(new Casilla(i, 0, 0));
