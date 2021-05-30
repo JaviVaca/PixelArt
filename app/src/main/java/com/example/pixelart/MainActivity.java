@@ -31,6 +31,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
@@ -364,6 +366,33 @@ public class MainActivity extends AppCompatActivity {
             cargarDibujoDatos();
         });
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
+
+        ajustarVista();
+    }
+
+    private void ajustarVista() {
+        int widthPixels = getResources().getDisplayMetrics().widthPixels;
+        int numeroColumnas=14;
+        for (int i=0;i<paleta.getChildCount();i++){
+            LinearLayout lnGrid = (LinearLayout)paleta.getChildAt(i);
+            int ancho=widthPixels/numeroColumnas;
+// Changes the height and width to the specified *pixels*
+
+
+            ViewGroup.LayoutParams paramsLnGrid = lnGrid.getLayoutParams();
+            paramsLnGrid.height = ancho;
+            paramsLnGrid.width = ancho;
+            lnGrid.setLayoutParams(paramsLnGrid);
+            int padding=10;
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) lnGrid.getLayoutParams();
+            p.setMargins(padding,padding,padding,padding);
+//            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+//                    ancho, ancho);
+//
+////            layoutParams.setMargins(30, 20, 30, 0);
+//            layoutParams.setMargins(4,4,4,4);
+//            lnGrid.setLayoutParams(layoutParams);
+        }
 
 
     }
