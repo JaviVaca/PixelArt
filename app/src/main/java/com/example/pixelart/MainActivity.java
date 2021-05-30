@@ -11,6 +11,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -25,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtrandom;
     private ImageView imagenDibujo;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
-                int colorSeleccionado=-1;
+                int colorSeleccionado= Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
                 if (colorSeleccionadoBck instanceof ColorDrawable) {
                     colorSeleccionado = ((ColorDrawable) colorSeleccionadoBck).getColor();
                 }
@@ -179,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                             GradientDrawable shape3 = new GradientDrawable();
                             shape3.setShape(GradientDrawable.RECTANGLE);
                             shape3.setColor(Color.parseColor(hexColor));
-                            shape3.setStroke(0, Color.BLACK);
+                            shape3.setStroke(2, Color.BLACK);
 
                             shape3.setCornerRadius(0);
                             shape3.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
@@ -198,24 +201,84 @@ public class MainActivity extends AppCompatActivity {
                     color = ((ColorDrawable) background).getColor();
 
                     String rgbColor= String.format("#%06X", (0xFFFFFF & color));
-                    ln.getBackground().setColorFilter(Color.rgb(40, 50, 60), PorterDuff.Mode.SRC_ATOP);
-                }
-                GradientDrawable shape = new GradientDrawable();
-                shape.setShape(GradientDrawable.RECTANGLE);
-                shape.setColor(colorSeleccionado);
-                shape.setStroke(8, Color.YELLOW);
+                    int[] rgba = (getRGB(Color.parseColor(rgbColor)));
+                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.RECTANGLE);
+                    shape.setColor(Color.parseColor(rgbColor));
+//                    shape.setColor(colorSeleccionado);
+                    shape.setStroke(8, Color.YELLOW);
 
-                shape.setCornerRadius(25);
+                    shape.setCornerRadius(25);
 //                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
-                ln.setBackgroundResource(0);
-                ln.setBackgroundDrawable(shape);
+                    ln.setBackgroundResource(0);
+                    ln.setBackgroundDrawable(shape);
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
-                putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
-                putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
-                String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
-                Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                    putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
+                    String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+                    Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+
+                    for(int q=0;q<paleta.getChildCount();q++){
+                        paleta.getChildAt(q).setClickable(false);
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int q=0;q<paleta.getChildCount();q++){
+                                paleta.getChildAt(q).setClickable(true);
+                            }
+                        }
+                    }, 500);
+
+
+
+                }
+//                PorterDuff.Mode backgroundGrad = ln.getBackgroundTintMode();
+
+                if (background instanceof GradientDrawable) {
+                    ColorStateList colorGradient = ((GradientDrawable) background).getColor();
+
+                   color=colorGradient.getDefaultColor();
+
+                    String rgbColor= String.format("#%06X", (0xFFFFFF & color));
+                    int[] rgba = (getRGB(Color.parseColor(rgbColor)));
+                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
+                    GradientDrawable shape = new GradientDrawable();
+                    shape.setShape(GradientDrawable.RECTANGLE);
+                    shape.setColor(Color.parseColor(rgbColor));
+//                    shape.setColor(colorSeleccionado);
+                    shape.setStroke(8, Color.YELLOW);
+
+                    shape.setCornerRadius(25);
+//                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
+                    ln.setBackgroundResource(0);
+                    ln.setBackgroundDrawable(shape);
+
+
+//                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
+                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
+                    putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
+                    String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+                    Toast.makeText(getApplicationContext(), "valor seleccionado->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
+
+                    for(int q=0;q<paleta.getChildCount();q++){
+                        paleta.getChildAt(q).setClickable(false);
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(int q=0;q<paleta.getChildCount();q++){
+                                paleta.getChildAt(q).setClickable(true);
+                            }
+                        }
+                    }, 500);
+
+
+
+                }
 
             });
         }
@@ -286,7 +349,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    public static int[] getRGB(final int hex) {
+        int r = (hex & 0xFF0000) >> 16;
+        int g = (hex & 0xFF00) >> 8;
+        int b = (hex & 0xFF);
+        return new int[] {r, g, b};
+    }
 
 
     private void cargarDibujoDatos() {
