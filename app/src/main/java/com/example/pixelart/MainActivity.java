@@ -102,14 +102,29 @@ public class MainActivity extends AppCompatActivity {
                 arrayCuadrados.add(lnHijo);
             }
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
-                pintarBorrar(event);
+                if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.pintar))||
+                        getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.borrar))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    pintarBorrar(event);
+                }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    elegirColor(event, v);
+                }
             }
             if(event.getAction() ==MotionEvent.ACTION_MOVE){
-                pintarBorrar(event);
+                if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.pintar))||
+                        getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.borrar))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    pintarBorrar(event);
+
+                }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    elegirColor(event, v);
+                }
             }
             if(event.getAction() ==MotionEvent.ACTION_UP){
-                pintarBorrar(event);
+                if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.pintar))||
+                        getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.borrar))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    pintarBorrar(event);
+                }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                    elegirColor(event, v);
+                }
             }
             return true;
         });
@@ -322,6 +337,8 @@ public class MainActivity extends AppCompatActivity {
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(200);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(150);
@@ -336,6 +353,8 @@ public class MainActivity extends AppCompatActivity {
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(200);
             fabNuevo.setCustomSize(150);
@@ -352,6 +371,8 @@ public class MainActivity extends AppCompatActivity {
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(200);
@@ -362,6 +383,8 @@ public class MainActivity extends AppCompatActivity {
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(150);
@@ -371,86 +394,173 @@ public class MainActivity extends AppCompatActivity {
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
 
         fabColorPicker.setOnClickListener(v -> {
+            putPref(getString(R.string.seleccionado), getString(R.string.color_picker), getApplicationContext());
+            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+
+            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabBorrar.setCustomSize(150);
+            fabColorPicker.setCustomSize(200);
+            fabPintar.setCustomSize(150);
+            fabNuevo.setCustomSize(150);
+            fabRandom.setCustomSize(150);
 
         });
         final int[] mDefaultColor = {0};
         fabColorPalette.setOnClickListener(v -> {
 
-            new ColorPickerPopup.Builder(MainActivity.this).initialColor(
-                    Color.RED) // set initial color
-                    // of the color
-                    // picker dialog
-                    .enableBrightness(
-                            true) // enable color brightness
-                    // slider or not
-                    .enableAlpha(
-                            true) // enable color alpha
-                    // changer on slider or
-                    // not
-                    .okTitle(
-                            "Choose") // this is top right
-                    // Choose button
-                    .cancelTitle(
-                            "Cancel") // this is top left
-                    // Cancel button which
-                    // closes the
-                    .showIndicator(
-                            true) // this is the small box
-                    // which shows the chosen
-                    // color by user at the
-                    // bottom of the cancel
-                    // button
-                    .showValue(
-                            true) // this is the value which
-                    // shows the selected
-                    // color hex code
-                    // the above all values can be made
-                    // false to disable them on the
-                    // color picker dialog.
-                    .build()
-                    .show(
-                            v,
-                            new ColorPickerPopup.ColorPickerObserver() {
-                                @Override
-                                public void
-                                onColorPicked(int color) {
-                                    // set the color
-                                    // which is returned
-                                    // by the color
-                                    // picker
+            if(!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+                new ColorPickerPopup.Builder(MainActivity.this).initialColor(
+                        Color.RED) // set initial color// of the color// picker dialog
+                        .enableBrightness(true) // enable color brightness
+                        .enableAlpha(true) // enable color alpha// changer on slider or // not
+                        .okTitle("OK") // this is top right// Choose button
+                        .cancelTitle("Cancelar") // this is top left // Cancel button which  // closes the
+                        .showIndicator(true) // this is the small box// which shows the chosen// color by user at the// bottom of the cancel// button
+                        .showValue(true) // this is the value which// shows the selected// color hex code// the above all values can be made// false to disable them on the// color picker dialog.
+                        .build()
+                        .show(v,new ColorPickerPopup.ColorPickerObserver() {
+                            @Override
+                            public void
+                            onColorPicked(int color) {
+                                // set the color// which is returned// by the color// picker
 //                                    mDefaultColor[0] = color;
 
-                                    // now as soon as
-                                    // the dialog closes
-                                    // set the preview
-                                    // box to returned
-                                    // color
+                                // now as soon as// the dialog closes// set the preview// box to returned// color
+//
 //                                    int indexOfMyView = ((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z));
 
-                                    colores.set(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)),color);
-                                    GradientDrawable shape = new GradientDrawable();
-                                    shape.setShape(GradientDrawable.RECTANGLE);
+                                colores.set(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)),color);
+                                GradientDrawable shape = new GradientDrawable();
+                                shape.setShape(GradientDrawable.RECTANGLE);
 //                                    Integer.toHexString(Integer.parseInt("String"));
 
-                                    shape.setColor((Integer.parseInt(String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))))));
-                                    shape.setStroke(8, Color.YELLOW);
+                                shape.setColor((Integer.parseInt(String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))))));
+                                shape.setStroke(8, Color.YELLOW);
 
-                                    shape.setCornerRadius(25);
-                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
-                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                                shape.setCornerRadius(25);
+                                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
+                                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
 
-                                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
-                                    putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+                                putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
+                                putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+                                putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
+
+                                String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+                                //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+
+                                fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+                                fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+                                fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+                                fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+                                fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+                                fabColorPicker.setCustomSize(150);
+                                fabBorrar.setCustomSize(150);
+                                fabPintar.setCustomSize(200);
+                                fabNuevo.setCustomSize(150);
+                                fabRandom.setCustomSize(150);
 
 //                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundColor(color);
-                                }
-                            });
+                            }
+                        });
+
+            }
 
         });
 
         ajustarVista();
     }
 
+    private void elegirColor(MotionEvent event, View v) {
+        for(int i=0;i<arrayInicioFin.size();i++){
+            Log.d("miFiltro",arrayInicioFin.get(i));
+            String[] largoyancho = arrayInicioFin.get(i).split("..->");
+            String[] largo = largoyancho[0].split("/");
+            String[] ancho=largoyancho[1].split("/");
+            int largoLimite;
+            int largoInicio;
+            int anchoLimite;
+            int anchoInicio;
+            //                String[] eventoX = String.valueOf(event.getX()).split(".");
+            //                String[] eventoY = String.valueOf(event.getY()).split(".");
+
+            String eventoX = String.valueOf(event.getX()).substring(0, String.valueOf(event.getX()).indexOf("."));
+            String eventoY = String.valueOf(event.getY()).substring(0, String.valueOf(event.getY()).indexOf("."));
+            if(largo[0].contains(".")){
+                String[] largoConPunto = largo[0].split(",");
+                if(largoConPunto.length==0){
+                    largoLimite =0;
+                }else{
+                    largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+                }
+            }else{
+                largoLimite = Integer.parseInt(largo[0].replace(".0",""));
+            }
+            if(largo[1].contains(".")){
+                String[] largoConPunto = largo[1].split(",");
+                if(largoConPunto.length==0){
+                    largoInicio =0;
+                }else{
+                    largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+                }
+            }else{
+                largoInicio = Integer.parseInt(largo[1].replace(".0",""));
+            }
+            if(ancho[0].contains(".")){
+                String[] anchoConPunto = ancho[0].split(",");
+                if(anchoConPunto.length==0){
+                    anchoLimite =0;
+                }else{
+                    anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+                }
+            }else{
+                anchoLimite = Integer.parseInt(ancho[0].replace(".0",""));
+            }
+            if(ancho[1].contains(".")){
+                String[] anchoConPunto = ancho[1].split(",");
+                if(anchoConPunto.length==0){
+                    anchoInicio =0;
+                }else{
+                    anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+                }
+            }else{
+                anchoInicio = Integer.parseInt(ancho[1].replace(".0",""));
+            }
+
+            if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
+                TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
+//                String colorSeleccionadoShaa = String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
+//                tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoShaa));
+
+
+                Drawable colorPicked=tv.getBackground();
+                if (colorPicked instanceof ColorDrawable) {
+                    int color = ((ColorDrawable) colorPicked).getColor();
+                    colores.set(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)),color);
+                }
+
+                GradientDrawable shape = new GradientDrawable();
+                shape.setShape(GradientDrawable.RECTANGLE);
+//                                    Integer.toHexString(Integer.parseInt("String"));
+
+                shape.setColor((Integer.parseInt(String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))))));
+                shape.setStroke(8, Color.YELLOW);
+
+                shape.setCornerRadius(25);
+                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
+                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+
+                putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
+                putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+
+            }
+        }
+
+
+    }
 
 
     public static int[] getRGB(final int hex) {
