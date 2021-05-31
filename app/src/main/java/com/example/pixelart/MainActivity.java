@@ -258,16 +258,18 @@ public class MainActivity extends AppCompatActivity {
             fabNuevo.setCustomSize(200);*/
 
         });
-         if (menu.getVisibility()==View.VISIBLE) {
              captura.setOnClickListener(v -> {
                  Bitmap lienzo = loadBitmapFromView(gridView);
                  saveImage(lienzo);
              });
              compartir.setOnClickListener(v -> {
              });
-             nuevo.setOnClickListener(v -> Nuevo());
+             nuevo.setOnClickListener(v -> {
+                 String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+                 Nuevo();
+             });
              aleatorio.setOnClickListener(v -> cargarDibujoDatos());
-         }
+
     }
 
 
