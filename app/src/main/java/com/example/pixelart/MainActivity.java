@@ -30,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import top.defaults.colorpicker.ColorPickerPopup;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         gridView.setAdapter(adaptadorGrid);
         gridView.setPadding(100,50,100,50);
         paleta = findViewById(R.id.paleta);
+        ctx = getApplicationContext();
 
         gridView.setOnTouchListener((v, event) -> {
             arrayCuadrados.clear();
@@ -145,12 +147,59 @@ public class MainActivity extends AppCompatActivity {
             int finalI1 = i;
             int finalI2 = i;
 
-            Drawable drawable = paleta.getChildAt(i).getBackground();
-            if (drawable instanceof ColorDrawable) {
-                int color = ((ColorDrawable) drawable).getColor();
-                colores.add(color);
-            }
+            if(getPref(getString(R.string.colorArrayList),ctx)!=null){
+                if(getPref(getString(R.string.colorArrayList),ctx).isEmpty()) {
+                    Drawable drawable = paleta.getChildAt(i).getBackground();
+                    if (drawable instanceof ColorDrawable) {
+                        int color = ((ColorDrawable) drawable).getColor();
+                        colores.add(color);
+                    }
+                }else if(!getPref(getString(R.string.colorArrayList),ctx).isEmpty()){
+                    ArrayList<String> myList = new ArrayList<String>(Arrays.asList(String.valueOf(getPref(getString(R.string.colorArrayList),ctx)).split(",")));
 
+                    if(!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
+
+                        for (int q=0;q<myList.size();q++){
+                            if(myList.get(q).contains("[")){
+                                myList.set(q,myList.get(q).replace("[",""));
+                            }else if(myList.get(q).contains("]")){
+                                myList.set(q,myList.get(q).replace("]",""));
+                            }else if(myList.get(q).contains("\"")){
+                                myList.set(q,myList.get(q).replace("\"",""));
+                            }
+                            if(myList.get(q).contains(" ")){
+                                myList.set(q,myList.get(q).replace(" ",""));
+                            }
+                            colores.add(Integer.parseInt(myList.get(q)));
+                        }
+
+//                        colores.set(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)), Integer.valueOf(getPref(getString(R.string.colorSeleccionado),ctx)));
+
+                        GradientDrawable shape = new GradientDrawable();
+                        shape.setShape(GradientDrawable.RECTANGLE);
+//                                    Integer.toHexString(Integer.parseInt("String"));
+
+                        shape.setColor((Integer.parseInt(String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))))));
+                        shape.setStroke(8, Color.YELLOW);
+
+                        shape.setCornerRadius(25);
+                        paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
+                        paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+
+                    }
+
+//                colores=getPref(getString(R.string.colorArrayList),ctx);
+//                colores=;
+                }
+
+            }else{
+                Drawable drawable = paleta.getChildAt(i).getBackground();
+                if (drawable instanceof ColorDrawable) {
+                    int color = ((ColorDrawable) drawable).getColor();
+                    colores.add(color);
+                }
+
+            }
             paleta.getChildAt(i).setOnClickListener(v -> {
                 Drawable colorSeleccionadoBck;
                 colorSeleccionadoBck =v.getBackground();
@@ -322,7 +371,6 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        ctx = getApplicationContext();
 
         /* Listeners para cada botón. Hacen lo que tienen que hacer y ademas
            se cambia color y tamaño del boton seleccionado. El resto de botones vuelven a su estado inicial*/
@@ -463,6 +511,8 @@ public class MainActivity extends AppCompatActivity {
                                 fabNuevo.setCustomSize(150);
                                 fabRandom.setCustomSize(150);
 
+                                putPref(getString(R.string.colorArrayList), colores.toString(), getApplicationContext());
+
 //                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundColor(color);
                             }
                         });
@@ -472,6 +522,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ajustarVista();
+
+
+
+
+
+
+
     }
 
     private void elegirColor(MotionEvent event, View v) {
