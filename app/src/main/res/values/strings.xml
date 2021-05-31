@@ -13,4 +13,6 @@
     <string name="avion">Dibuja un Avión</string>
     <string name="flor">Dibuja una Flor</string>
     <string name="colorSeleccionadoCasilla">casillacolorseleccionado</string>
+    <string name="color_picker">seleccionar color</string>
+    <string name="color_palette">paleta de colores</string>
 </resources>

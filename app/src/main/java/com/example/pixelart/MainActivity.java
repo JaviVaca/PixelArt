@@ -6,11 +6,9 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,11 +29,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
+
+import top.defaults.colorpicker.ColorPickerPopup;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imagenDibujo;
     private ArrayList<Integer> colores=new ArrayList<>();
     private int numeroColumnas;
+    FloatingActionButton fabColorPalette ;
+    FloatingActionButton fabColorPicker ;
+    private LinearLayout ln;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
@@ -119,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
         FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
         FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
+        fabColorPalette = findViewById(R.id.fabColorPalette);
+        fabColorPicker = findViewById(R.id.fabColorPicker);
 
         txtrandom = findViewById(R.id.txtDibujoRandom);
         imagenDibujo = findViewById(R.id.imagenDibujo);
@@ -162,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if (background0 instanceof GradientDrawable) {
                         int indexOfMyView = ((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z));
-                        View viewOfMyViewPref = ((ViewGroup) v.getParent()).getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)));
+                        View viewOfMyViewPref = ((ViewGroup) v.getParent()).getChildAt(Integer.parseInt(String.valueOf(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))));
                         int indexOfMyViewPref = ((ViewGroup) viewOfMyViewPref.getParent()).indexOfChild(viewOfMyViewPref);
 
                         if(indexOfMyView==indexOfMyViewPref){
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
 
                     putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
-                    String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+                    String colorSeleccionadoShared = String.valueOf(getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext()));
                     Toast.makeText(getApplicationContext(), "valor seleccionado click->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
@@ -283,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
 //                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colorSeleccionado), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
-                    String colorSeleccionadoShared = getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext());
+                    String colorSeleccionadoShared = String.valueOf(getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext()));
                     Toast.makeText(getApplicationContext(), "valor seleccionado putpref->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
@@ -312,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
         fabBorrar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.borrar), getApplicationContext());
-            String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
 
@@ -327,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
         });
         fabPintar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
-            String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
@@ -342,7 +344,7 @@ public class MainActivity extends AppCompatActivity {
         });
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
-            String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
             Nuevo();
 
@@ -367,6 +369,84 @@ public class MainActivity extends AppCompatActivity {
             cargarDibujoDatos();
         });
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
+
+        fabColorPicker.setOnClickListener(v -> {
+
+        });
+        final int[] mDefaultColor = {0};
+        fabColorPalette.setOnClickListener(v -> {
+
+            new ColorPickerPopup.Builder(MainActivity.this).initialColor(
+                    Color.RED) // set initial color
+                    // of the color
+                    // picker dialog
+                    .enableBrightness(
+                            true) // enable color brightness
+                    // slider or not
+                    .enableAlpha(
+                            true) // enable color alpha
+                    // changer on slider or
+                    // not
+                    .okTitle(
+                            "Choose") // this is top right
+                    // Choose button
+                    .cancelTitle(
+                            "Cancel") // this is top left
+                    // Cancel button which
+                    // closes the
+                    .showIndicator(
+                            true) // this is the small box
+                    // which shows the chosen
+                    // color by user at the
+                    // bottom of the cancel
+                    // button
+                    .showValue(
+                            true) // this is the value which
+                    // shows the selected
+                    // color hex code
+                    // the above all values can be made
+                    // false to disable them on the
+                    // color picker dialog.
+                    .build()
+                    .show(
+                            v,
+                            new ColorPickerPopup.ColorPickerObserver() {
+                                @Override
+                                public void
+                                onColorPicked(int color) {
+                                    // set the color
+                                    // which is returned
+                                    // by the color
+                                    // picker
+//                                    mDefaultColor[0] = color;
+
+                                    // now as soon as
+                                    // the dialog closes
+                                    // set the preview
+                                    // box to returned
+                                    // color
+//                                    int indexOfMyView = ((ViewGroup) paleta.getChildAt(z).getParent()).indexOfChild(paleta.getChildAt(z));
+
+                                    colores.set(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)),color);
+                                    GradientDrawable shape = new GradientDrawable();
+                                    shape.setShape(GradientDrawable.RECTANGLE);
+//                                    Integer.toHexString(Integer.parseInt("String"));
+
+                                    shape.setColor((Integer.parseInt(String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))))));
+                                    shape.setStroke(8, Color.YELLOW);
+
+                                    shape.setCornerRadius(25);
+                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
+                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+
+                                    putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
+                                    putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+
+//                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundColor(color);
+                                }
+                            });
+
+        });
 
         ajustarVista();
     }
@@ -451,7 +531,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void Nuevo() {
-        String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
+        String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
 
         if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.nuevo))) {
             for(int i=0;i<gridView.getChildCount();i++) {
@@ -476,12 +556,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pintarBorrar(MotionEvent event) {
-        String colorSeleccionadoSha = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
+        String colorSeleccionadoSha = String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
 
-        if(getPref(ctx.getString(R.string.colorSeleccionado), ctx)!=null&&getPref(ctx.getString(R.string.seleccionado), ctx)!=null){
+        if(String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx))!=null&&String.valueOf(getPref(ctx.getString(R.string.seleccionado), ctx))!=null){
 
 
-            String valorSeleccionado = getPref(ctx.getString(R.string.seleccionado), ctx);
+            String valorSeleccionado = String.valueOf(getPref(ctx.getString(R.string.seleccionado), ctx));
 
             //en caso de que se haya seleccionado el boton de pintar, se pintara del color seleccionado
             //anteriormente en la paleta
@@ -556,7 +636,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(Integer.parseInt(eventoX)<=anchoLimite&&Integer.parseInt(eventoX)>=anchoInicio&&Integer.parseInt(eventoY)<=largoLimite&&Integer.parseInt(eventoY)>=largoInicio){
                         TextView tv=(TextView) arrayCuadrados.get(i).getChildAt(0);
-                        String colorSeleccionadoShaa = getPref(ctx.getString(R.string.colorSeleccionado), ctx);
+                        String colorSeleccionadoShaa = String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
                         tv.setBackgroundColor(Integer.parseInt(colorSeleccionadoShaa));
                     }
                 }
@@ -660,14 +740,27 @@ public class MainActivity extends AppCompatActivity {
 //            layoutParams.setMargins(4,4,4,4);
 //            lnGrid.setLayoutParams(layoutParams);
         }
+        ln=(LinearLayout)findViewById(R.id.lnAcciones);
+        ViewGroup.LayoutParams paramsLnGrid = ln.getLayoutParams();
 
+
+//        if(widthPixels<paramsLnGrid.width){
+//            ln.removeView(fabColorPicker);
+//            ln.removeView(fabColorPalette);
+//            LinearLayout parent = new LinearLayout(MainActivity.this);
+//            int index = ((ViewGroup) ln.getParent()).indexOfChild(ln);
+//
+//            parent.setLayoutParams(new LinearLayout.LayoutParams(ln.getHeight(), ln.getWidth()));
+//            parent.setOrientation(LinearLayout.HORIZONTAL);
+//            ((ViewGroup) ln.getParent()).addView(parent, index);
+//        }
 
     }
     public void insertarDatos(){
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
-        int porcentajePantalla=60;
-        numeroColumnas=12;
+        int porcentajePantalla=40;
+        numeroColumnas=10;
 
         int ancho=widthPixels/numeroColumnas;
         int numCasillas=heightPixels/ancho;

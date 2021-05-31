@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.100000024">
+        app:layout_constraintVertical_bias="0.050000012">
 
     </GridView>
 
@@ -58,7 +58,7 @@
         app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GridView"
-        app:layout_constraintVertical_bias="0.033"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
         <LinearLayout
@@ -263,7 +263,69 @@
     </GridLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/lnAcciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:foregroundGravity="center"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paleta"
+        app:layout_constraintVertical_bias="0.0">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabPintar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/pintar"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/baseline_create_black_18dp"
+            app:useCompatPadding="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabBorrar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/borrar"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/eraser"
+            app:useCompatPadding="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabNuevo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/nuevo"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/baseline_note_add_black_18dp"
+            app:useCompatPadding="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabRandom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/nuevo"
+            android:focusable="true"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/random"
+            app:useCompatPadding="true" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnAcciones2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:foregroundGravity="center"
@@ -273,53 +335,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paleta"
-        app:layout_constraintVertical_bias="0.543">
+        app:layout_constraintTop_toBottomOf="@+id/lnAcciones"
+        app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabPintar"
+            android:id="@+id/fabColorPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_weight="1"
             android:clickable="true"
-            android:contentDescription="@string/pintar"
-            android:padding="10dp"
-            app:srcCompat="@drawable/baseline_create_black_18dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabBorrar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/borrar"
-            android:padding="10dp"
-            app:srcCompat="@drawable/eraser" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabNuevo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/nuevo"
-            android:padding="10dp"
-            app:srcCompat="@drawable/baseline_note_add_black_18dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabRandom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/nuevo"
+            android:contentDescription="@string/color_picker"
             android:focusable="true"
-            android:padding="10dp"
-            app:srcCompat="@drawable/random" />
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/color_picker"
+            app:useCompatPadding="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabColorPalette"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:contentDescription="@string/color_palette"
+            android:focusable="true"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/color_palette"
+            app:useCompatPadding="true" />
     </LinearLayout>
 
 
