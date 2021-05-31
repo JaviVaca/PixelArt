@@ -310,7 +310,9 @@
             android:layout_marginBottom="5dp"
             android:background="#F44336"
             android:orientation="horizontal"
-            android:tag="IdImagen11" />
+            android:tag="IdImagen11" >
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/con2_9"
@@ -342,13 +344,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/paleta"
         app:layout_constraintVertical_bias="0.543">
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabPintar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:layout_margin="20dp"
             android:layout_weight="1"
+            android:clickable="true"
             android:contentDescription="@string/pintar"
             app:srcCompat="@drawable/baseline_create_black_18dp" />
 
@@ -356,8 +359,8 @@
             android:id="@+id/fabBorrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:contentDescription="@string/borrar"
             app:srcCompat="@drawable/eraser" />
@@ -367,21 +370,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:clickable="true"
             android:layout_weight="1"
+            android:clickable="true"
             android:contentDescription="@string/nuevo"
             app:srcCompat="@drawable/baseline_note_add_black_18dp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabRandom"
-            android:layout_width="wrap_content"
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="171dp"
+        android:layout_height="193dp"
+        android:id="@+id/menu"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/nuevoLienzo"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:contentDescription="@string/nuevo"
-            android:focusable="true"
-            app:srcCompat="@drawable/random" />
+            android:text="@string/nuevo_lienzo" />
+
+        <Button
+            android:id="@+id/aleatorio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dibujo_aleatorio" />
+
+        <Button
+            android:id="@+id/captura"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/foto_del_dibujo" />
+
+        <Button
+            android:id="@+id/compartir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/compartir_dibujo" />
     </LinearLayout>
 
 

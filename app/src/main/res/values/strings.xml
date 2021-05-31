@@ -12,4 +12,10 @@
     <string name="arbol">Dibuja un Arbol</string>
     <string name="avion">Dibuja un Avión</string>
     <string name="flor">Dibuja una Flor</string>
+    <string name="nuevo_lienzo">Nuevo lienzo</string>
+    <string name="dibujo_aleatorio">Dibujo aleatorio</string>
+    <string name="foto_del_lienzo">Foto del lienzo</string>
+    <string name="foto_del_dibujo">Foto del dibujo</string>
+    <string name="compartir_dibujo">Compartir dibujo</string>
+    <string name="lienzo_nuevo">Lienzo Nuevo</string>
 </resources>
