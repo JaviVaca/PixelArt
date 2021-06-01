@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(lnAcciones2.getVisibility()==View.GONE){
-                    imgArrow.setImageDrawable(getDrawable(R.drawable.left_arrow));
+                    imgArrow.setImageDrawable(getDrawable(R.drawable.up_arrow));
                     lnAcciones2.setVisibility(View.VISIBLE);
 
                 }else{
-                    imgArrow.setImageDrawable(getDrawable(R.drawable.right_arrow));
+                    imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
                     lnAcciones2.setVisibility(View.GONE);
 
                 }

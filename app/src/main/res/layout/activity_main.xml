@@ -17,7 +17,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
-
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/rlAcciones"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.050000012"
+            tools:ignore="NotSibling">
         <LinearLayout
             android:id="@+id/lnAcciones"
             android:layout_width="wrap_content"
@@ -83,23 +95,23 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/rlAcciones"
-            android:layout_marginTop="60dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.050000012"
-            tools:ignore="NotSibling">
+            <ImageView
+                android:id="@+id/imgArrow"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:contentDescription="@string/todo"
+                android:padding="10dp"
+                app:srcCompat="@drawable/down_arrow" />
+
+        </LinearLayout>
 
             <LinearLayout
+                android:layout_marginRight="60dp"
                 android:id="@+id/lnAcciones2"
+                android:layout_alignRight="@id/linearLayout"
+                android:layout_below="@id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -134,17 +146,7 @@
                     app:useCompatPadding="true" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imgArrow"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:contentDescription="@string/todo"
-                android:padding="10dp"
-                app:srcCompat="@drawable/right_arrow" />
 
-        </LinearLayout>
 
     </RelativeLayout>
 
