@@ -1,8 +1,11 @@
 package com.example.pixelart;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -31,7 +34,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -48,6 +54,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private GridView gridView;
+    private boolean tienePermisoAlmacenamiento = false;
+    private static final int permisoAlmacenamiento = 1;
     ArrayList<LinearLayout> arrayCuadrados=new ArrayList<>();
     ArrayList<String> arrayLimites=new ArrayList<>();
     ArrayList<String> arrayInicioFin=new ArrayList<>();
@@ -61,11 +69,17 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         insertarDatos();
-
+        int estadoDePermiso = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (estadoDePermiso == PackageManager.PERMISSION_GRANTED) {
+            tienePermisoAlmacenamiento=true;
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, permisoAlmacenamiento);
+        }
         gridView = findViewById(R.id.GridView);
         LinearLayout menu= findViewById(R.id.menu);
         Button captura=findViewById(R.id.captura);
@@ -272,7 +286,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case permisoAlmacenamiento:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                } else {
+
+                }
+                break;
+            // Aquí más casos dependiendo de los permisos
+            // case OTRO_CODIGO_DE_PERMISOS...
+        }
+    }
 
 
     private void cargarDibujoDatos() {
@@ -306,24 +333,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveImage(Bitmap finalBitmap) {
-        Date date = new Date();
-        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
-        dateFormat.format(date);
-        String fechaHoy=date.toString();
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root);
-        myDir.mkdirs();
-        String fname = "Image-" +"Captura"+ fechaHoy+ ".jpg";
-        File file = new File(myDir, fname);
-        if (file.exists()) file.delete();
-        Log.i("LOAD", root + fname);
-        try {
-            FileOutputStream out = new FileOutputStream(file);
-            finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (tienePermisoAlmacenamiento) {
+            Date date = new Date();
+            @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyyHH:mm:ss");
+            dateFormat.format(date);
+            String fechaHoy = date.toString();
+            String root = Environment.getExternalStorageDirectory().toString();
+            File myDir = new File(root);
+            myDir.mkdirs();
+            String fname = "Image-" + "Captura" + fechaHoy + ".jpg";
+            File file = new File(myDir, fname);
+            if (file.exists()) file.delete();
+            Log.i("LOAD", root + fname);
+            try {
+                FileOutputStream out = new FileOutputStream(file);
+                finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                out.flush();
+                out.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -366,7 +395,6 @@ public class MainActivity extends AppCompatActivity {
     private void Nuevo() {
         String valorSeleccionado = getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext());
 
-        if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.nuevo))) {
             for(int i=0;i<gridView.getChildCount();i++) {
                 LinearLayout lnHijo=(LinearLayout)gridView.getChildAt(i);
                 TextView tvHijo=(TextView) lnHijo.getChildAt(0);
@@ -385,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
 
-        }
+
     }
 
     private void pintarBorrar(MotionEvent event) {

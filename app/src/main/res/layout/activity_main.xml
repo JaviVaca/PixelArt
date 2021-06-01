@@ -382,6 +382,7 @@
         android:layout_height="193dp"
         android:visibility="gone"
         android:id="@+id/menu"
+        android:background="@color/black"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent">
