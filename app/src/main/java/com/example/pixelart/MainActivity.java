@@ -532,6 +532,7 @@ public class MainActivity extends AppCompatActivity {
                                 fabRandom.setCustomSize(150);
 
                                 putPref(getString(R.string.colorArrayList), colores.toString(), getApplicationContext());
+                                lnAcciones2.setVisibility(View.GONE);
 
 //                                    paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundColor(color);
                             }
@@ -632,7 +633,7 @@ public class MainActivity extends AppCompatActivity {
 
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
                 putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
-
+                lnAcciones2.setVisibility(View.GONE);
             }
         }
 
@@ -752,7 +753,7 @@ public class MainActivity extends AppCompatActivity {
 
             //en caso de que se haya seleccionado el boton de pintar, se pintara del color seleccionado
             //anteriormente en la paleta
-            if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.pintar))) {
+            if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.pintar))&&getPref(ctx.getString(R.string.colorSeleccionado), ctx)!=null) {
 
                 Log.d("miFiltro","esto es arrayCuadrados");
 
@@ -829,7 +830,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-            } else if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.borrar))) {
+            } else if (valorSeleccionado.equalsIgnoreCase(ctx.getString(R.string.borrar))&&getPref(ctx.getString(R.string.colorSeleccionado), ctx)!=null) {
                 for(int i=0;i<arrayInicioFin.size();i++){
                     Log.d("miFiltro",arrayInicioFin.get(i));
                     String[] largoyancho = arrayInicioFin.get(i).split("..->");
