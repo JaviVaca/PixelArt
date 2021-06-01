@@ -108,13 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 float alturaHijo = lnHijo.getHeight();
                 float anchuraHijo = lnHijo.getWidth();
 
+
                 if(yHijo<alturaHijo){
-                    altura=(margintopGridView+alturaHijo)+"/"+(margintopGridView+yHijo);
+                    altura=(margintopGridView+alturaHijo)+"/"+(margintopGridView);
                 }else if(yHijo>=alturaHijo){
                     altura=(margintopGridView+alturaHijo+yHijo)+"/"+(margintopGridView+yHijo);
                 }
                 if(xHijo<anchuraHijo){
-                    anchura="->"+(marginleftGridView+anchuraHijo)+"/"+(marginleftGridView+xHijo);
+                    anchura="->"+(marginleftGridView)+"/"+(marginleftGridView+anchuraHijo);
                 }else if(xHijo>=anchuraHijo){
                     anchura="->"+(marginleftGridView+anchuraHijo+xHijo)+"/"+(marginleftGridView+xHijo);
                 }
@@ -447,6 +448,8 @@ public class MainActivity extends AppCompatActivity {
             fabRandom.setCustomSize(150);
         });
         fabRandom.setOnClickListener(v -> {
+            lnAcciones2.setVisibility(View.GONE);
+            imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
@@ -972,6 +975,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+    private int getRelativeLeft(View myView) {
+        if (myView.getParent() == myView.getRootView())
+            return myView.getLeft();
+        else
+            return myView.getLeft() + getRelativeLeft((View) myView.getParent());
+    }
+
+    private int getRelativeTop(View myView) {
+        if (myView.getParent() == myView.getRootView())
+            return myView.getTop();
+        else
+            return myView.getTop() + getRelativeTop((View) myView.getParent());
     }
 
     public static String getPref(String key, Context context) {
