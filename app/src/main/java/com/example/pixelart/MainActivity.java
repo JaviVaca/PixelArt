@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> arrayInicioFin=new ArrayList<>();
     Context ctx;
     GridLayout paleta;
+    ImageView imgArrow;
+    LinearLayout lnAcciones2;
     int m;
     private TextView txtrandom;
     private ImageView imagenDibujo;
@@ -62,12 +64,30 @@ public class MainActivity extends AppCompatActivity {
         insertarDatos();
 
         gridView = findViewById(R.id.GridView);
+        lnAcciones2 = findViewById(R.id.lnAcciones2);
+        imgArrow = findViewById(R.id.imgArrow);
         AdaptadorGrid adaptadorGrid = new AdaptadorGrid(this);
         gridView.setAdapter(adaptadorGrid);
         gridView.setPadding(100,50,100,50);
         paleta = findViewById(R.id.paleta);
         ctx = getApplicationContext();
 
+        lnAcciones2.setVisibility(View.GONE);
+
+        imgArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(lnAcciones2.getVisibility()==View.GONE){
+                    imgArrow.setImageDrawable(getDrawable(R.drawable.left_arrow));
+                    lnAcciones2.setVisibility(View.VISIBLE);
+
+                }else{
+                    imgArrow.setImageDrawable(getDrawable(R.drawable.right_arrow));
+                    lnAcciones2.setVisibility(View.GONE);
+
+                }
+            }
+        });
         gridView.setOnTouchListener((v, event) -> {
             arrayCuadrados.clear();
             arrayLimites.clear();
