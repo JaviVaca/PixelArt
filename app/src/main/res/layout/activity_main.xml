@@ -144,6 +144,17 @@
                     android:scaleType="fitXY"
                     app:srcCompat="@drawable/color_palette"
                     app:useCompatPadding="true" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabScreenshot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:contentDescription="@string/color_palette"
+                    android:focusable="true"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/baseline_screenshot_20"
+                    app:useCompatPadding="true" />
             </LinearLayout>
 
 

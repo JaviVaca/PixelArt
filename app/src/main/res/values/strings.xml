@@ -17,4 +17,6 @@
     <string name="color_palette">paleta de colores</string>
     <string name="colorArrayList">arraylistdecolores</string>
     <string name="todo">TODO</string>
+
+    <string name="screen">Captura guardada correctamente</string>
 </resources>

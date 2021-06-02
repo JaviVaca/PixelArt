@@ -1,9 +1,13 @@
 package com.example.pixelart;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -26,11 +30,16 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 
 import top.defaults.colorpicker.ColorPickerPopup;
@@ -49,10 +58,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtrandom;
     private ImageView imagenDibujo;
     private ArrayList<Integer> colores=new ArrayList<>();
-    private int numeroColumnas;
     FloatingActionButton fabColorPalette ;
     FloatingActionButton fabColorPicker ;
-    private LinearLayout ln;
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
@@ -60,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        verifyStoragePermissions(this);
 
         insertarDatos();
 
@@ -71,21 +81,17 @@ public class MainActivity extends AppCompatActivity {
         gridView.setPadding(100,50,100,50);
         paleta = findViewById(R.id.paleta);
         ctx = getApplicationContext();
-
         lnAcciones2.setVisibility(View.GONE);
 
-        imgArrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(lnAcciones2.getVisibility()==View.GONE){
-                    imgArrow.setImageDrawable(getDrawable(R.drawable.up_arrow));
-                    lnAcciones2.setVisibility(View.VISIBLE);
+        imgArrow.setOnClickListener(v -> {
+            if(lnAcciones2.getVisibility()==View.GONE){
+                imgArrow.setImageDrawable(getDrawable(R.drawable.up_arrow));
+                lnAcciones2.setVisibility(View.VISIBLE);
 
-                }else{
-                    imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
-                    lnAcciones2.setVisibility(View.GONE);
+            }else{
+                imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
+                lnAcciones2.setVisibility(View.GONE);
 
-                }
             }
         });
         gridView.setOnTouchListener((v, event) -> {
@@ -129,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                         getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.borrar))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
                     pintarBorrar(event);
                 }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
-                    elegirColor(event, v);
+                    elegirColor(event);
                 }
             }
             if(event.getAction() ==MotionEvent.ACTION_MOVE){
@@ -138,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     pintarBorrar(event);
 
                 }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
-                    elegirColor(event, v);
+                    elegirColor(event);
                 }
             }
             if(event.getAction() ==MotionEvent.ACTION_UP){
@@ -146,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                         getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.borrar))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
                     pintarBorrar(event);
                 }else if(getPref(getString(R.string.seleccionado),ctx).equalsIgnoreCase(getString(R.string.color_picker))&&!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
-                    elegirColor(event, v);
+                    elegirColor(event);
                 }
             }
             return true;
@@ -157,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
         FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
         FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
+        FloatingActionButton fabScreenshot = findViewById(R.id.fabScreenshot);
+
+
         fabColorPalette = findViewById(R.id.fabColorPalette);
         fabColorPicker = findViewById(R.id.fabColorPicker);
 
@@ -430,6 +439,7 @@ public class MainActivity extends AppCompatActivity {
             fabRandom.setCustomSize(150);
 
         });
+        fabPintar.performClick();
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
             String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
@@ -545,6 +555,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        fabScreenshot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeScreenshot();
+            }
+        });
+
         ajustarVista();
 
 
@@ -555,7 +572,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void elegirColor(MotionEvent event, View v) {
+    private void elegirColor(MotionEvent event) {
         for(int i=0;i<arrayInicioFin.size();i++){
             Log.d("miFiltro",arrayInicioFin.get(i));
             String[] largoyancho = arrayInicioFin.get(i).split("..->");
@@ -931,7 +948,7 @@ public class MainActivity extends AppCompatActivity {
 //            layoutParams.setMargins(4,4,4,4);
 //            lnGrid.setLayoutParams(layoutParams);
         }
-        ln=(LinearLayout)findViewById(R.id.lnAcciones);
+        LinearLayout ln = findViewById(R.id.lnAcciones);
         ViewGroup.LayoutParams paramsLnGrid = ln.getLayoutParams();
 
 
@@ -951,13 +968,13 @@ public class MainActivity extends AppCompatActivity {
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
         int porcentajePantalla=40;
-        numeroColumnas=10;
+        int numeroColumnas = 10;
 
-        int ancho=widthPixels/numeroColumnas;
+        int ancho=widthPixels/ numeroColumnas;
         int numCasillas=heightPixels/ancho;
-        numeroColumnas=16;
+        numeroColumnas =16;
 
-        numCasillas=numCasillas*numeroColumnas;
+        numCasillas=numCasillas* numeroColumnas;
 
 //        384/
 
@@ -1001,4 +1018,67 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(key, value);
         editor.apply();
     }
+
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
+
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = (this.getExternalFilesDir(null)+ "/" + now + ".jpg");
+
+            // create bitmap screen capture
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+            imageFile.createNewFile();
+
+            try (FileOutputStream out = new FileOutputStream(imageFile)) {
+
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out); // bmp is your Bitmap instance
+                // PNG is a lossless format, the compression factor (100) is ignored
+                out.flush();
+                Toast.makeText(this, R.string.screen,Toast.LENGTH_SHORT).show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        } catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
 }
