@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -173,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
         imagenDibujo = findViewById(R.id.imagenDibujo);
 
         for (int i = 0; i< paleta.getChildCount(); i++){
-            int finalI = i;
-            int finalI1 = i;
             int finalI2 = i;
 
             if(getPref(getString(R.string.colorArrayList),ctx)!=null){
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
                         colores.add(color);
                     }
                 }else if(!getPref(getString(R.string.colorArrayList),ctx).isEmpty()){
-                    ArrayList<String> myList = new ArrayList<String>(Arrays.asList(String.valueOf(getPref(getString(R.string.colorArrayList),ctx)).split(",")));
+                    ArrayList<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(getPref(getString(R.string.colorArrayList), ctx)).split(",")));
 
                     if(!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
 
@@ -236,9 +236,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                int colorSeleccionado= Integer.parseInt(getPref(getString(R.string.colorSeleccionado),ctx));
-                int colorSeleccionado=0;
                 if (colorSeleccionadoBck instanceof ColorDrawable) {
-                    colorSeleccionado = ((ColorDrawable) colorSeleccionadoBck).getColor();
+                    ((ColorDrawable) colorSeleccionadoBck).getColor();
                 }
 
                 int color=Color.TRANSPARENT;
@@ -359,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
 
                    color=colorGradient.getDefaultColor();
 
-                    String rgbColor= String.format("#%06X", (0xFFFFFF & color));
+                    String.format("#%06X", (0xFFFFFF & color));
 //                    int[] rgba = (getRGB(Color.parseColor(String.valueOf(colores.get(((ViewGroup) v.getParent()).indexOfChild(v))))));
 //                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
                     GradientDrawable shape = new GradientDrawable();
@@ -372,7 +371,13 @@ public class MainActivity extends AppCompatActivity {
                     shape.setCornerRadius(25);
 //                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
                     ln.setBackgroundResource(0);
-                    ln.setBackgroundDrawable(shape);
+                    //lo puesto antes de limpiar ln.setBackgroundDrawable(shape);
+
+                    ln.setBackground(shape);
+                    /*Display display = getWindowManager().getDefaultDisplay();
+                    int width = display.getWidth();
+                    int height = display.getHeight();*/
+
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
@@ -385,12 +390,9 @@ public class MainActivity extends AppCompatActivity {
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
                     }
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(int q=0;q<paleta.getChildCount();q++){
-                                paleta.getChildAt(q).setClickable(true);
-                            }
+                    new Handler().postDelayed(() -> {
+                        for(int q=0;q<paleta.getChildCount();q++){
+                            paleta.getChildAt(q).setClickable(true);
                         }
                     }, 500);
 
@@ -407,15 +409,22 @@ public class MainActivity extends AppCompatActivity {
 
         fabBorrar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.borrar), getApplicationContext());
-            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+            String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
 
-            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
+            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
+
+            fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+
             fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(200);
             fabPintar.setCustomSize(150);
@@ -424,14 +433,22 @@ public class MainActivity extends AppCompatActivity {
         });
         fabPintar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
-            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+            String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
-            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
+
+            fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+
+
             fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(200);
@@ -442,15 +459,23 @@ public class MainActivity extends AppCompatActivity {
         fabPintar.performClick();
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
-            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+            String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
             //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
             Nuevo();
 
-            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
+
+
+            fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+
             fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(150);
@@ -460,11 +485,18 @@ public class MainActivity extends AppCompatActivity {
         fabRandom.setOnClickListener(v -> {
             lnAcciones2.setVisibility(View.GONE);
             imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
-            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
+
+            fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+
             fabColorPicker.setCustomSize(150);
             fabBorrar.setCustomSize(150);
             fabPintar.setCustomSize(150);
@@ -476,7 +508,7 @@ public class MainActivity extends AppCompatActivity {
 
         fabColorPicker.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.color_picker), getApplicationContext());
-            String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+            String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
 
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
@@ -530,14 +562,24 @@ public class MainActivity extends AppCompatActivity {
                                 putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
                                 putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
 
-                                String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
+                                String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
                                 //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+
+                                /*
 
                                 fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
                                 fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
                                 fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
                                 fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
                                 fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+
+                                */
+
+                                fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                                fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                                fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                                fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                                fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
                                 fabColorPicker.setCustomSize(150);
                                 fabBorrar.setCustomSize(150);
                                 fabPintar.setCustomSize(200);
@@ -555,12 +597,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        fabScreenshot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takeScreenshot();
-            }
-        });
+        fabScreenshot.setOnClickListener(v -> takeScreenshot());
 
         ajustarVista();
 
@@ -767,7 +804,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void pintarBorrar(MotionEvent event) {
-        String colorSeleccionadoSha = String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
+        //-- String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
 
         if(String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx))!=null&&String.valueOf(getPref(ctx.getString(R.string.seleccionado), ctx))!=null){
 
@@ -952,7 +989,7 @@ public class MainActivity extends AppCompatActivity {
 //            lnGrid.setLayoutParams(layoutParams);
         }
         LinearLayout ln = findViewById(R.id.lnAcciones);
-        ViewGroup.LayoutParams paramsLnGrid = ln.getLayoutParams();
+        ln.getLayoutParams();
 
 
 //        if(widthPixels<paramsLnGrid.width){
@@ -970,7 +1007,6 @@ public class MainActivity extends AppCompatActivity {
     public void insertarDatos(){
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
-        int porcentajePantalla=40;
         int numeroColumnas = 10;
 
         int ancho=widthPixels/ numeroColumnas;
@@ -981,10 +1017,6 @@ public class MainActivity extends AppCompatActivity {
 
 //        384/
 
-        if(numCasillas%16!=0){
-            int resultado=numCasillas%16;
-            int resyutl=resultado;
-        }
         for (int i=0; i<numCasillas;i++) {
             if (i%2==0) {
                 Casilla.ITEMS.add(new Casilla(i, 0, 0));
@@ -995,19 +1027,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
-    private int getRelativeLeft(View myView) {
-        if (myView.getParent() == myView.getRootView())
-            return myView.getLeft();
-        else
-            return myView.getLeft() + getRelativeLeft((View) myView.getParent());
-    }
-
-    private int getRelativeTop(View myView) {
-        if (myView.getParent() == myView.getRootView())
-            return myView.getTop();
-        else
-            return myView.getTop() + getRelativeTop((View) myView.getParent());
     }
 
     public static String getPref(String key, Context context) {
@@ -1025,7 +1044,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Storage Permissions
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] PERMISSIONS_STORAGE = {
+    private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -1060,6 +1079,7 @@ public class MainActivity extends AppCompatActivity {
 
             File imageFile = new File(mPath);
             imageFile.createNewFile();
+            //--imageFile.createNewFile();
 
             try (FileOutputStream out = new FileOutputStream(imageFile)) {
 
