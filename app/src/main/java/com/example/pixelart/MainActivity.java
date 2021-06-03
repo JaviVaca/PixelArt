@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     int m;
     private TextView txtrandom;
     private ImageView imagenDibujo;
-    private ArrayList<Integer> colores=new ArrayList<>();
+    private final ArrayList<Integer> colores=new ArrayList<>();
     FloatingActionButton fabColorPalette ;
     FloatingActionButton fabColorPicker ;
 
@@ -668,7 +668,8 @@ public class MainActivity extends AppCompatActivity {
         return new int[] {r, g, b};
     }
 
-
+    //Esta funcion elige la imagen random a mostrar
+    //para asi saber que debes dibujar
     private void cargarDibujoDatos() {
 
         Random rand = new Random();
@@ -693,7 +694,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-
+    //Estas funciones de cargar dibujo muestran el texto y el
+    //dibujo a lo de que se debe dibujar
     private void cargarDibujo4() {
 
         txtrandom.setText(R.string.arbol);
@@ -724,7 +726,8 @@ public class MainActivity extends AppCompatActivity {
         ocultarDibujo();
 
     }
-
+    //Esta funcion oculta la imagen a dibujar pasados los 2 segundos
+    //tambien oculta el texto a lo que se debe dibujar
     private void ocultarDibujo() {
 
         new Handler().postDelayed(() -> {
