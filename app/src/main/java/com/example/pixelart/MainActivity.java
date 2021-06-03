@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -214,7 +213,8 @@ public class MainActivity extends AppCompatActivity {
 
                         shape.setCornerRadius(25);
                         paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
-                        paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                        //--paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                        paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackground(shape);
 
                     }
 
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
                     ((ColorDrawable) colorSeleccionadoBck).getColor();
                 }
 
-                int color=Color.TRANSPARENT;
+                int color;
                 String hexColor = null;
 
                 for(int z=0;z<paleta.getChildCount();z++) {
@@ -276,7 +276,8 @@ public class MainActivity extends AppCompatActivity {
                             shape.setCornerRadius(5);
                             shape.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
                             lnC.setBackgroundResource(0);
-                            lnC.setBackgroundDrawable(shape);
+                            //--lnC.setBackgroundDrawable(shape);
+                            lnC.setBackground(shape);
 
                         }
 
@@ -299,7 +300,8 @@ public class MainActivity extends AppCompatActivity {
 
                             shape3.setCornerRadius(0);
                             shape3.setCornerRadii(new float[] { 0, 0, 0, 0, 0, 0, 0, 0 });
-                                lns.setBackgroundDrawable(shape3);
+                                //--lns.setBackgroundDrawable(shape3);
+                                lns.setBackground(shape3);
                                 lns.setBackgroundResource(0);
                                 lns.setBackgroundColor(Color.parseColor(hexColor));
 //                            }
@@ -325,11 +327,12 @@ public class MainActivity extends AppCompatActivity {
                     shape.setCornerRadius(25);
 //                shape.setCornerRadii(new float[] { 8, 8, 8, 8, 0, 0, 0, 0 });
                     ln.setBackgroundResource(0);
-                    ln.setBackgroundDrawable(shape);
+                    //--ln.setBackgroundDrawable(shape);
+                    ln.setBackground(shape);
 
 
 //                ln.setBackground(getDrawable(R.drawable.color_seleccionado));
-                    String hexColors = String.format("#%06X", (0xFFFFFF & (colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)))))));
+                    //--String hexColors = String.format("#%06X", (0xFFFFFF & (colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)))))));
 
                     putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
@@ -339,12 +342,9 @@ public class MainActivity extends AppCompatActivity {
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
                     }
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            for(int q=0;q<paleta.getChildCount();q++){
-                                paleta.getChildAt(q).setClickable(true);
-                            }
+                    new Handler().postDelayed(() -> {
+                        for(int q=0;q<paleta.getChildCount();q++){
+                            paleta.getChildAt(q).setClickable(true);
                         }
                     }, 500);
 
@@ -356,9 +356,9 @@ public class MainActivity extends AppCompatActivity {
                 if (background instanceof GradientDrawable) {
                     ColorStateList colorGradient = ((GradientDrawable) background).getColor();
 
-                   color=colorGradient.getDefaultColor();
+                    colorGradient.getDefaultColor();
 
-                    String.format("#%06X", (0xFFFFFF & color));
+                    //--String.format("#%06X", (0xFFFFFF & color));
 //                    int[] rgba = (getRGB(Color.parseColor(String.valueOf(colores.get(((ViewGroup) v.getParent()).indexOfChild(v))))));
 //                    ln.getBackground().setColorFilter(Color.rgb(rgba[0],rgba[1],rgba[2]), PorterDuff.Mode.SRC_ATOP);
                     GradientDrawable shape = new GradientDrawable();
@@ -510,11 +510,19 @@ public class MainActivity extends AppCompatActivity {
             putPref(getString(R.string.seleccionado), getString(R.string.color_picker), getApplicationContext());
             String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
 
+            /*
             fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
             fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
+            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
+
+
+            fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabBorrar.setCustomSize(150);
             fabColorPicker.setCustomSize(200);
             fabPintar.setCustomSize(150);
@@ -522,7 +530,7 @@ public class MainActivity extends AppCompatActivity {
             fabRandom.setCustomSize(150);
 
         });
-        final int[] mDefaultColor = {0};
+        //--final int[] mDefaultColor = {0};
         fabColorPalette.setOnClickListener(v -> {
 
             if(!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
@@ -556,7 +564,8 @@ public class MainActivity extends AppCompatActivity {
 
                                 shape.setCornerRadius(25);
                                 paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
-                                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                                //--paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackground(shape);
 
                                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
                                 putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
@@ -686,7 +695,7 @@ public class MainActivity extends AppCompatActivity {
 
                 shape.setCornerRadius(25);
                 paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundResource(0);
-                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackgroundDrawable(shape);
+                paleta.getChildAt(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))).setBackground(shape);
 
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
                 putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
@@ -1070,6 +1079,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             // image naming and path  to include sd card  appending name you choose for file
             String mPath = (this.getExternalFilesDir(null)+ "/" + now + ".jpg");
+            //String mPath = (this.getExternalStorageDirectory().getAbsolutePath() + "/filename");
 
             // create bitmap screen capture
             View v1 = getWindow().getDecorView().getRootView();
@@ -1078,7 +1088,7 @@ public class MainActivity extends AppCompatActivity {
             v1.setDrawingCacheEnabled(false);
 
             File imageFile = new File(mPath);
-            imageFile.createNewFile();
+            //imageFile.createNewFile();
             //--imageFile.createNewFile();
 
             try (FileOutputStream out = new FileOutputStream(imageFile)) {
