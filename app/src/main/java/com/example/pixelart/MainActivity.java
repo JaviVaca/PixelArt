@@ -70,20 +70,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Verificamos si tenemos permisos de almacenamiento
         verifyStoragePermissions(this);
 
+        // Inserta las casillas del lienzo
         insertarDatos();
 
+        // Declaracion de variables
         gridView = findViewById(R.id.GridView);
         lnAcciones2 = findViewById(R.id.lnAcciones2);
+        lnAcciones2.setVisibility(View.GONE);
         imgArrow = findViewById(R.id.imgArrow);
         AdaptadorGrid adaptadorGrid = new AdaptadorGrid(this);
         gridView.setAdapter(adaptadorGrid);
         gridView.setPadding(100,50,100,50);
         paleta = findViewById(R.id.paleta);
         ctx = getApplicationContext();
-        lnAcciones2.setVisibility(View.GONE);
+        txtrandom = findViewById(R.id.txtDibujoRandom);
+        imagenDibujo = findViewById(R.id.imagenDibujo);
+        FloatingActionButton fabPintar = findViewById(R.id.fabPintar);
+        FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
+        FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
+        FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
+        FloatingActionButton fabScreenshot = findViewById(R.id.fabScreenshot);
 
+        // Listener de la flecha que despliega mas botones del menu
         imgArrow.setOnClickListener(v -> {
             if(lnAcciones2.getVisibility()==View.GONE){
                 imgArrow.setImageDrawable(getDrawable(R.drawable.up_arrow));
@@ -95,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        //Listener del lienzo
         gridView.setOnTouchListener((v, event) -> {
             arrayCuadrados.clear();
             arrayLimites.clear();
@@ -159,19 +172,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-
-        FloatingActionButton fabPintar = findViewById(R.id.fabPintar);
-        FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
-        FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
-        FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
-        FloatingActionButton fabScreenshot = findViewById(R.id.fabScreenshot);
-
-
+        // Listener del boton de elegir color personalizado
         fabColorPalette = findViewById(R.id.fabColorPalette);
+
+        // Listener del boton de color
         fabColorPicker = findViewById(R.id.fabColorPicker);
 
-        txtrandom = findViewById(R.id.txtDibujoRandom);
-        imagenDibujo = findViewById(R.id.imagenDibujo);
+
 
         for (int i = 0; i< paleta.getChildCount(); i++){
             int finalI2 = i;
@@ -407,17 +414,10 @@ public class MainActivity extends AppCompatActivity {
         /* Listeners para cada botón. Hacen lo que tienen que hacer y ademas
            se cambia color y tamaño del boton seleccionado. El resto de botones vuelven a su estado inicial*/
 
+        // Boton Borrar
         fabBorrar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.borrar), getApplicationContext());
             String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
-            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
-
-
-            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
 
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
@@ -431,16 +431,11 @@ public class MainActivity extends AppCompatActivity {
             fabNuevo.setCustomSize(150);
             fabRandom.setCustomSize(150);
         });
+
+        // Boton Pintar
         fabPintar.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
             String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
-            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
-
-            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
 
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
@@ -456,19 +451,16 @@ public class MainActivity extends AppCompatActivity {
             fabRandom.setCustomSize(150);
 
         });
+
+        // Al iniciar la aplicacion queda seleccionado el boton pintar
         fabPintar.performClick();
+
+        // Boton Nuevo lienzo
         fabNuevo.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.nuevo), getApplicationContext());
             String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
-            //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
+
             Nuevo();
-
-            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
-
 
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
@@ -482,14 +474,11 @@ public class MainActivity extends AppCompatActivity {
             fabNuevo.setCustomSize(200);
             fabRandom.setCustomSize(150);
         });
+
+        // Boton imagen random, que muestra una imagen para que el usuario se base en ella a la hora de crear un nuevo dibujo
         fabRandom.setOnClickListener(v -> {
             lnAcciones2.setVisibility(View.GONE);
             imgArrow.setImageDrawable(getDrawable(R.drawable.down_arrow));
-            /*fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
 
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
@@ -506,17 +495,10 @@ public class MainActivity extends AppCompatActivity {
         });
         //SharedPreferences pref = getApplicationContext().getSharedPreferences("seleccionado", 0); // 0 - for private mode
 
+        // Boton seleccionar color
         fabColorPicker.setOnClickListener(v -> {
             putPref(getString(R.string.seleccionado), getString(R.string.color_picker), getApplicationContext());
             String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
-
-            /*
-            fabBorrar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabPintar.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabNuevo.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));
-            fabColorPicker.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.white)));
-            fabRandom.setBackgroundTintList(ColorStateList.valueOf(getResources().getColor(R.color.teal_200)));*/
-
 
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
@@ -530,7 +512,8 @@ public class MainActivity extends AppCompatActivity {
             fabRandom.setCustomSize(150);
 
         });
-        //--final int[] mDefaultColor = {0};
+
+        // Boton elegir color personalizado
         fabColorPalette.setOnClickListener(v -> {
 
             if(!getPref(getString(R.string.colorSeleccionadoCasilla),ctx).isEmpty()){
@@ -606,18 +589,14 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        // Boton captura de pantalla
         fabScreenshot.setOnClickListener(v -> takeScreenshot());
 
         ajustarVista();
 
-
-
-
-
-
-
     }
 
+    // Metodo para elegir color
     private void elegirColor(MotionEvent event) {
         for(int i=0;i<arrayInicioFin.size();i++){
             Log.d("miFiltro",arrayInicioFin.get(i));
@@ -740,6 +719,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
     //Estas funciones de cargar dibujo muestran el texto y el
     //dibujo a lo de que se debe dibujar
     private void cargarDibujo4() {
@@ -749,22 +729,18 @@ public class MainActivity extends AppCompatActivity {
         ocultarDibujo();
 
     }
-
     private void cargarDibujo3() {
 
         txtrandom.setText(R.string.avion);
         imagenDibujo.setImageResource(R.drawable.arbol);
         ocultarDibujo();
     }
-
-
     private void cargarDibujo2() {
 
         txtrandom.setText(R.string.flor);
         imagenDibujo.setImageResource(R.drawable.flor);
         ocultarDibujo();
     }
-
     private void cargarDibujo1() {
 
         txtrandom.setText(R.string.casa);
@@ -772,6 +748,7 @@ public class MainActivity extends AppCompatActivity {
         ocultarDibujo();
 
     }
+
     //Esta funcion oculta la imagen a dibujar pasados los 2 segundos
     //tambien oculta el texto a lo que se debe dibujar
     private void ocultarDibujo() {
@@ -787,6 +764,7 @@ public class MainActivity extends AppCompatActivity {
         },5250);
     }
 
+    // Limpia el lienzo para empezar de nuevo
     private void Nuevo() {
         String valorSeleccionado = String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
 
@@ -812,6 +790,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Metodo para pintar en el lienzo
     private void pintarBorrar(MotionEvent event) {
         //-- String.valueOf(getPref(ctx.getString(R.string.colorSeleccionado), ctx));
 
@@ -974,13 +953,15 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    // Ajusta el grid a la anchura de la pantalla del dispositivo
     private void ajustarVista() {
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int numeroColumnas=14;
         for (int i=0;i<paleta.getChildCount();i++){
             LinearLayout lnGrid = (LinearLayout)paleta.getChildAt(i);
             int ancho=widthPixels/numeroColumnas;
-// Changes the height and width to the specified *pixels*
+            // Changes the height and width to the specified *pixels*
 
 
             ViewGroup.LayoutParams paramsLnGrid = lnGrid.getLayoutParams();
@@ -1013,6 +994,8 @@ public class MainActivity extends AppCompatActivity {
 //        }
 
     }
+
+    // Inserta el grid de casillas que sirven de lienzo
     public void insertarDatos(){
         int widthPixels = getResources().getDisplayMetrics().widthPixels;
         int heightPixels = getResources().getDisplayMetrics().heightPixels;
@@ -1038,6 +1021,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // Shared Preferences que guardar el color elegido
     public static String getPref(String key, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(key, null);
@@ -1050,14 +1034,13 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
-
-    // Storage Permissions
+    // Permisos de almacenamiento y lectura
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static final String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-
+    // Verificacion de los permisos
     public static void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission
         int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -1072,6 +1055,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Captura de pantalla
     private void takeScreenshot() {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
@@ -1108,10 +1092,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
 
 
 }
