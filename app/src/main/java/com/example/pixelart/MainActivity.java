@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
@@ -64,9 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables"})
+    @SuppressLint({"ClickableViewAccessibility", "UseCompatLoadingForDrawables", "SourceLockedOrientationActivity"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -344,7 +346,6 @@ public class MainActivity extends AppCompatActivity {
                     putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
                     String colorSeleccionadoShared = String.valueOf(getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext()));
-                    Toast.makeText(getApplicationContext(), "valor seleccionado click->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
@@ -392,7 +393,6 @@ public class MainActivity extends AppCompatActivity {
                     putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(((ViewGroup) paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v)).getParent()).indexOfChild(paleta.getChildAt(((ViewGroup) v.getParent()).indexOfChild(v))))), getApplicationContext());
                     putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(finalI2), getApplicationContext());
                     String colorSeleccionadoShared = String.valueOf(getPref(getApplicationContext().getString(R.string.colorSeleccionado), getApplicationContext()));
-                    Toast.makeText(getApplicationContext(), "valor seleccionado putpref->"+colorSeleccionadoShared, Toast.LENGTH_SHORT).show();
 
                     for(int q=0;q<paleta.getChildCount();q++){
                         paleta.getChildAt(q).setClickable(false);
@@ -555,7 +555,6 @@ public class MainActivity extends AppCompatActivity {
                                 putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
 
                                 String.valueOf(getPref(getApplicationContext().getString(R.string.seleccionado), getApplicationContext()));
-                                //Toast.makeText(this, "valor seleccionado->"+valorSeleccionado, Toast.LENGTH_SHORT).show();
 
                                 /*
 
