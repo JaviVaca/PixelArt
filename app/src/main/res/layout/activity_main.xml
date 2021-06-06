@@ -22,7 +22,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/rlAcciones"
+            android:layout_alignStart="@id/rlAcciones"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,6 @@
             android:id="@+id/lnAcciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:foregroundGravity="center"
             android:gravity="center"
             android:orientation="horizontal"
@@ -98,7 +97,7 @@
 
             <ImageView
                 android:id="@+id/imgArrow"
-                android:layout_width="60dp"
+                android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
@@ -109,14 +108,13 @@
         </LinearLayout>
 
             <LinearLayout
-                android:layout_marginRight="60dp"
+                android:layout_marginEnd="60dp"
                 android:id="@+id/lnAcciones2"
-                android:layout_alignRight="@id/linearLayout"
+                android:layout_alignEnd="@id/linearLayout"
                 android:layout_below="@id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:foregroundGravity="center"
                 android:gravity="center"
                 android:orientation="horizontal">

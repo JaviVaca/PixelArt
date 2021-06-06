@@ -713,7 +713,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        else if(m ==3){
+        else {
             cargarDibujo4();
 
         }
