@@ -1,4 +1,4 @@
-package com.example.pixelart;
+package com.proyectog4.pixelart;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -980,7 +980,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout ln = findViewById(R.id.lnAcciones);
         ln.getLayoutParams();
 
-
+ººº
 //        if(widthPixels<paramsLnGrid.width){
 //            ln.removeView(fabColorPicker);
 //            ln.removeView(fabColorPalette);

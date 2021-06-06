@@ -1,4 +1,4 @@
-package com.example.pixelart;
+package com.proyectog4.pixelart;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;

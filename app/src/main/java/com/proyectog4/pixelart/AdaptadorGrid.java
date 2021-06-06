@@ -1,4 +1,4 @@
-package com.example.pixelart;
+package com.proyectog4.pixelart;
 
 import android.content.Context;
 import android.graphics.Color;

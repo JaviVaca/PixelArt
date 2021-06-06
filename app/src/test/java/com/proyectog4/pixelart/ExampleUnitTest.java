@@ -1,4 +1,4 @@
-package com.example.pixelart;
+package com.proyectog4.pixelart;
 
 import org.junit.Test;
 
