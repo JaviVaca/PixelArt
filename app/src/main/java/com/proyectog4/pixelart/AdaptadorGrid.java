@@ -65,7 +65,7 @@ public class AdaptadorGrid extends BaseAdapter {
         if ((position>0)&&(position%numeroColumnas==0)) {
             linea = position/numeroColumnas;
         }
-        casilla.setLinea(linea);
+        casilla.setLinea();
 
 //        tvGrid.setTag(position+"/"+linea);
         if (linea%2==0) {

@@ -5,13 +5,11 @@ import java.util.ArrayList;
 public class Casilla {
     private final int id;
     private final int color;
-    private int linea;
     public static ArrayList<Casilla> ITEMS= new ArrayList<>();
 
-    public Casilla (int id, int color, int linea) {
+    public Casilla(int id, int color) {
         this.id = id;
         this.color = color;
-        this.linea = linea;
     }
 
     public int getId() {
@@ -28,8 +26,7 @@ public class Casilla {
         this.color = color;
     }*/
 
-    public void setLinea(int linea) {
-        this.linea = linea;
+    public void setLinea() {
     }
 
 
