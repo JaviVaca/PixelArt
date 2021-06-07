@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtrandom;
     private ImageView imagenDibujo;
     private final ArrayList<Integer> colores=new ArrayList<>();
-    FloatingActionButton fabColorPalette ;
-    FloatingActionButton fabColorPicker ;
+    FloatingActionButton fabColorPalette, fabColorPicker, fabPintar, fabBorrar, fabNuevo, fabRandom;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -90,10 +89,10 @@ public class MainActivity extends AppCompatActivity {
         ctx = getApplicationContext();
         txtrandom = findViewById(R.id.txtDibujoRandom);
         imagenDibujo = findViewById(R.id.imagenDibujo);
-        FloatingActionButton fabPintar = findViewById(R.id.fabPintar);
-        FloatingActionButton fabBorrar = findViewById(R.id.fabBorrar);
-        FloatingActionButton fabNuevo = findViewById(R.id.fabNuevo);
-        FloatingActionButton fabRandom = findViewById(R.id.fabRandom);
+        fabPintar = findViewById(R.id.fabPintar);
+        fabBorrar = findViewById(R.id.fabBorrar);
+        fabNuevo = findViewById(R.id.fabNuevo);
+        fabRandom = findViewById(R.id.fabRandom);
         FloatingActionButton fabScreenshot = findViewById(R.id.fabScreenshot);
 
         // Listener de la flecha que despliega mas botones del menu
@@ -503,13 +502,15 @@ public class MainActivity extends AppCompatActivity {
             fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
             fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
-            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
-            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+            fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
             fabBorrar.setCustomSize(150);
             fabColorPicker.setCustomSize(200);
             fabPintar.setCustomSize(150);
             fabNuevo.setCustomSize(150);
             fabRandom.setCustomSize(150);
+
+            putPref(getString(R.string.colorArrayList), colores.toString(), getApplicationContext());
 
         });
 
@@ -677,6 +678,22 @@ public class MainActivity extends AppCompatActivity {
 
                 putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
                 putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+                lnAcciones2.setVisibility(View.GONE);
+                putPref(getString(R.string.colorSeleccionado), String.valueOf(colores.get(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx)))), getApplicationContext());
+                putPref(getString(R.string.colorSeleccionadoCasilla), String.valueOf(Integer.parseInt(getPref(getString(R.string.colorSeleccionadoCasilla),ctx))), getApplicationContext());
+                putPref(getString(R.string.seleccionado), getString(R.string.pintar), getApplicationContext());
+
+                fabBorrar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                fabPintar.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.white));
+                fabNuevo.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                fabRandom.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                fabColorPicker.setBackgroundTintList(ContextCompat.getColorStateList(getApplicationContext(), R.color.teal_200));
+                fabColorPicker.setCustomSize(150);
+                fabBorrar.setCustomSize(150);
+                fabPintar.setCustomSize(200);
+                fabNuevo.setCustomSize(150);
+                fabRandom.setCustomSize(150);
+
                 lnAcciones2.setVisibility(View.GONE);
             }
         }
@@ -980,7 +997,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout ln = findViewById(R.id.lnAcciones);
         ln.getLayoutParams();
 
-ººº
+
 //        if(widthPixels<paramsLnGrid.width){
 //            ln.removeView(fabColorPicker);
 //            ln.removeView(fabColorPalette);
